@@ -3,513 +3,821 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#0f766e">
 <title>NurQuest | Akhlak Islamiah</title>
 
 <style>
 :root{
-  --pink:#c94f86;
-  --pink2:#e989ae;
-  --purple:#7653a8;
-  --bg:#fff8fc;
-  --card:#ffffff;
-  --text:#302936;
-  --muted:#766d78;
-  --line:#eadce5;
-  --good:#287a4b;
-  --bad:#b33d4d;
-  --shadow:0 10px 30px rgba(100,60,100,.10);
+    --primary:#0f766e;
+    --primary-dark:#115e59;
+    --primary-light:#ccfbf1;
+    --gold:#d4a017;
+    --bg:#f5f7f6;
+    --card:#ffffff;
+    --text:#17201f;
+    --muted:#667371;
+    --border:#dfe7e5;
+    --success:#15803d;
+    --success-bg:#dcfce7;
+    --danger:#dc2626;
+    --danger-bg:#fee2e2;
+    --shadow:0 8px 30px rgba(15,118,110,.08);
+    --radius:18px;
 }
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  transition:.3s;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    transition:.25s;
 }
 
 body.dark{
-  --bg:#17131b;
-  --card:#241e29;
-  --text:#f5edf7;
-  --muted:#c0b4c4;
-  --line:#413544;
-  --shadow:0 10px 30px rgba(0,0,0,.25);
+    --bg:#101817;
+    --card:#182220;
+    --text:#edf5f3;
+    --muted:#9cafab;
+    --border:#293936;
+    --primary-light:#173d38;
+    --success-bg:#12351f;
+    --danger-bg:#3b1717;
+    --shadow:0 8px 30px rgba(0,0,0,.2);
 }
 
-body.easy{
-  font-family:"Trebuchet MS",Arial,sans-serif;
-  letter-spacing:.02em;
+button{
+    font:inherit;
 }
+
+a{
+    color:inherit;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
-  background:linear-gradient(135deg,#c94f86,#7653a8);
-  color:white;
-  padding:55px 20px;
-  text-align:center;
+    background:rgba(255,255,255,.92);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(12px);
 }
 
-header .small{
-  font-size:13px;
-  opacity:.9;
-  text-transform:uppercase;
-  letter-spacing:2px;
+body.dark header{
+    background:rgba(16,24,23,.94);
 }
 
-header h1{
-  margin:8px 0;
-  font-size:48px;
+.header-inner{
+    max-width:1180px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-header p{
-  max-width:650px;
-  margin:auto;
-  font-size:17px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
+
+.brand-icon{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    background:var(--primary);
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:23px;
+}
+
+.brand h1{
+    font-size:18px;
+    line-height:1.1;
+}
+
+.brand small{
+    color:var(--muted);
+    font-size:11px;
 }
 
 nav{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:var(--card);
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:center;
-  gap:5px;
-  padding:10px;
-  box-shadow:0 3px 12px rgba(0,0,0,.05);
+    display:flex;
+    gap:5px;
+    overflow-x:auto;
 }
 
 nav button{
-  border:0;
-  background:transparent;
-  color:var(--text);
-  padding:11px 15px;
-  border-radius:9px;
-  cursor:pointer;
-  font-weight:bold;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:9px 11px;
+    border-radius:10px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.2s;
 }
 
 nav button:hover,
 nav button.active{
-  background:#f4dce8;
-  color:#9d3e6b;
+    background:var(--primary-light);
+    color:var(--primary);
 }
 
+/* =========================
+   MAIN
+========================= */
+
 main{
-  width:min(1100px,94%);
-  margin:28px auto;
+    max-width:1180px;
+    margin:auto;
+    padding:30px 20px 70px;
 }
 
 .section{
-  display:none;
+    display:none;
+    animation:fade .2s ease;
 }
 
 .section.active{
-  display:block;
+    display:block;
 }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:25px;
-  margin-bottom:20px;
-  box-shadow:var(--shadow);
+@keyframes fade{
+    from{opacity:0;transform:translateY(5px)}
+    to{opacity:1;transform:translateY(0)}
 }
 
 .hero{
-  padding:45px;
-  background:linear-gradient(135deg,#fff0f6,#f1eafd);
+    background:linear-gradient(135deg,#0f766e,#115e59);
+    color:white;
+    border-radius:26px;
+    padding:38px;
+    margin-bottom:22px;
+    position:relative;
+    overflow:hidden;
 }
 
-.dark .hero{
-  background:linear-gradient(135deg,#2b2029,#282036);
+.hero:after{
+    content:"☪";
+    position:absolute;
+    right:35px;
+    bottom:-30px;
+    font-size:170px;
+    opacity:.08;
 }
 
-.eyebrow{
-  color:var(--pink);
-  font-weight:bold;
-  font-size:13px;
-  text-transform:uppercase;
-  letter-spacing:1.5px;
+.hero h2{
+    font-size:clamp(27px,5vw,44px);
+    line-height:1.15;
+    max-width:650px;
 }
 
-h2{
-  font-size:30px;
-  margin:8px 0 10px;
+.hero p{
+    margin-top:12px;
+    max-width:650px;
+    color:#d9fffa;
 }
 
-h3{
-  margin-top:0;
+.hero-actions{
+    margin-top:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
 }
 
-.lead{
-  color:var(--muted);
-  font-size:16px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.mini{
-  background:var(--card);
-  border:1px solid var(--line);
-  padding:22px;
-  border-radius:15px;
-}
+/* =========================
+   BUTTONS
+========================= */
 
 .btn{
-  border:0;
-  background:linear-gradient(135deg,var(--pink),var(--purple));
-  color:white;
-  padding:12px 20px;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-  min-height:44px;
+    border:0;
+    border-radius:12px;
+    padding:11px 16px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.18s;
 }
 
-.btn.secondary{
-  background:transparent;
-  color:var(--pink);
-  border:1px solid var(--pink2);
+.btn:hover{
+    transform:translateY(-1px);
 }
 
-.btn:disabled{
-  opacity:.55;
-  cursor:not-allowed;
+.btn-primary{
+    background:var(--primary);
+    color:white;
 }
 
-.note-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
+.btn-white{
+    background:white;
+    color:var(--primary-dark);
 }
 
-.note{
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:22px;
-  background:var(--card);
+.btn-outline{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--border);
 }
 
-.note-number{
-  display:inline-flex;
-  width:35px;
-  height:35px;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:#f2d6e5;
-  color:#9c3d69;
-  font-weight:bold;
-  margin-bottom:8px;
+.btn-danger{
+    background:var(--danger);
+    color:white;
 }
 
-.chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
+.btn-small{
+    padding:8px 11px;
+    font-size:13px;
 }
 
-.chip{
-  background:#f5e5ed;
-  color:#8d4164;
-  padding:5px 10px;
-  border-radius:20px;
-  font-size:13px;
+/* =========================
+   CARDS / GRID
+========================= */
+
+.grid{
+    display:grid;
+    gap:18px;
 }
 
-.dark .chip,
-.dark .note-number{
-  background:#443040;
-  color:#f0b5d0;
+.grid-2{
+    grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
-.search{
-  width:100%;
-  padding:14px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:var(--card);
-  color:var(--text);
-  margin:12px 0 20px;
-  font-size:15px;
+.grid-3{
+    grid-template-columns:repeat(3,minmax(0,1fr));
 }
 
-.toggle-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:18px;
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:21px;
+    box-shadow:var(--shadow);
 }
 
-.toggle{
-  padding:9px 14px;
-  border:1px solid var(--line);
-  background:var(--card);
-  color:var(--text);
-  border-radius:9px;
-  cursor:pointer;
+.card h3{
+    margin-bottom:7px;
 }
 
-.toggle.selected{
-  background:#f2d6e5;
-  color:#8e3861;
-  border-color:var(--pink2);
+.muted{
+    color:var(--muted);
 }
 
-.quiz-top{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  align-items:center;
-  margin-bottom:15px;
+.stat-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.stat-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:var(--primary-light);
+    display:grid;
+    place-items:center;
+    font-size:23px;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:800;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================
+   XP
+========================= */
+
+.xp-box{
+    margin-top:20px;
+}
+
+.xp-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:7px;
+    font-size:14px;
+    font-weight:700;
 }
 
 .progress{
-  width:100%;
-  height:10px;
-  background:#eadfe6;
-  border-radius:20px;
-  overflow:hidden;
+    width:100%;
+    height:10px;
+    border-radius:99px;
+    background:var(--border);
+    overflow:hidden;
 }
 
 .progress-bar{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--pink),var(--purple));
-  transition:.3s;
+    height:100%;
+    background:var(--primary);
+    border-radius:99px;
+    transition:.35s;
+}
+
+.level-title{
+    color:var(--primary);
+    font-weight:800;
+}
+
+/* =========================
+   TOPIC CARDS
+========================= */
+
+.topic-card{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.topic-card:hover{
+    transform:translateY(-3px);
+}
+
+.topic-icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.topic-card h3{
+    font-size:20px;
+}
+
+.topic-card p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.topic-meta{
+    margin-top:15px;
+    font-size:12px;
+    color:var(--muted);
+}
+
+/* =========================
+   NOTES
+========================= */
+
+.notes-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.note-list{
+    display:grid;
+    gap:14px;
+}
+
+.note{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+}
+
+.note h3{
+    color:var(--primary);
+    margin-bottom:10px;
+}
+
+.note p{
+    margin-bottom:10px;
+}
+
+.note ul{
+    padding-left:20px;
+    margin-bottom:10px;
+}
+
+.source{
+    display:inline-block;
+    background:var(--primary-light);
+    color:var(--primary);
+    border-radius:9px;
+    padding:5px 9px;
+    font-size:12px;
+    margin-top:8px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.learning-card{
+    min-height:190px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.card-label{
+    color:var(--primary);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.08em;
+}
+
+.learning-card .big{
+    font-size:25px;
+    font-weight:800;
+    margin:10px 0;
+}
+
+.learning-card .situation{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* =========================
+   QUIZ
+========================= */
+
+.quiz-wrapper{
+    max-width:820px;
+    margin:auto;
+}
+
+.quiz-header{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.quiz-number{
+    font-weight:800;
 }
 
 .timer{
-  font-weight:bold;
-  color:var(--pink);
-  white-space:nowrap;
+    font-weight:800;
+    color:var(--primary);
 }
 
-.question{
-  font-size:21px;
-  font-weight:bold;
-  margin:20px 0;
+.timer.warning{
+    color:var(--danger);
 }
 
-.option{
-  display:block;
-  width:100%;
-  text-align:left;
-  padding:15px;
-  margin:10px 0;
-  border:1px solid var(--line);
-  border-radius:11px;
-  background:var(--card);
-  color:var(--text);
-  cursor:pointer;
-  transition:.15s;
+.quiz-progress{
+    margin-bottom:22px;
 }
 
-.option:hover{
-  border-color:var(--pink);
+.quiz-question{
+    font-size:24px;
+    font-weight:800;
+    margin-bottom:20px;
 }
 
-.option.correct{
-  background:#edf8f0;
-  border-color:#8bc49d;
-  color:var(--good);
+.options{
+    display:grid;
+    gap:12px;
 }
 
-.option.wrong{
-  background:#fff0f2;
-  border-color:#df9aa5;
-  color:var(--bad);
+.quiz-option{
+    width:100%;
+    display:flex;
+    align-items:center;
+    text-align:left;
+    gap:13px;
+    padding:15px;
+    border-radius:14px;
+    background:var(--card);
+    color:var(--text);
+    border:2px solid var(--border);
+    cursor:pointer;
+    transition:.18s;
+}
+
+.quiz-option:hover:not(:disabled){
+    border-color:var(--primary);
+    background:var(--primary-light);
+}
+
+.quiz-option:disabled{
+    cursor:default;
+}
+
+.option-letter{
+    width:34px;
+    height:34px;
+    flex:none;
+    border-radius:10px;
+    display:grid;
+    place-items:center;
+    background:var(--bg);
+    font-weight:800;
+}
+
+.quiz-option.correct{
+    border-color:var(--success);
+    background:var(--success-bg);
+}
+
+.quiz-option.correct .option-letter{
+    background:var(--success);
+    color:white;
+}
+
+.quiz-option.wrong{
+    border-color:var(--danger);
+    background:var(--danger-bg);
+}
+
+.quiz-option.wrong .option-letter{
+    background:var(--danger);
+    color:white;
 }
 
 .feedback{
-  margin-top:15px;
-  padding:14px;
-  border-radius:10px;
-  font-weight:bold;
+    margin-top:16px;
+    padding:14px;
+    border-radius:13px;
+    display:none;
 }
 
-.feedback.good{
-  background:#edf8f0;
-  color:var(--good);
+.feedback.show{
+    display:block;
 }
 
-.feedback.bad{
-  background:#fff0f2;
-  color:var(--bad);
+.feedback.correct{
+    background:var(--success-bg);
+    color:var(--success);
+}
+
+.feedback.wrong{
+    background:var(--danger-bg);
+    color:var(--danger);
 }
 
 .quiz-actions{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:18px;
+    margin-top:18px;
+    display:flex;
+    justify-content:flex-end;
 }
 
-.hint{
-  background:#fff8df;
-  border:1px solid #ead58b;
-  padding:12px;
-  border-radius:10px;
-  margin-top:12px;
+.mode-switch{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
 }
 
-.dark .hint{
-  background:#38301d;
-  color:#f4e7ae;
+.mode-btn{
+    flex:1;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    padding:12px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:700;
 }
+
+.mode-btn.active{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+}
+
+/* =========================
+   RESULT
+========================= */
 
 .result{
-  text-align:center;
-  padding:35px 15px;
+    text-align:center;
+    padding:35px 20px;
 }
 
-.score{
-  font-size:60px;
-  font-weight:bold;
-  color:var(--pink);
+.result-score{
+    font-size:58px;
+    font-weight:900;
+    color:var(--primary);
 }
 
-.history-item{
-  display:flex;
-  justify-content:space-between;
-  padding:12px;
-  border-bottom:1px solid var(--line);
+.result h2{
+    margin-bottom:8px;
 }
 
-.bar{
-  height:9px;
-  background:#eee4eb;
-  border-radius:10px;
-  overflow:hidden;
-  margin-top:5px;
+.result-actions{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:22px;
 }
 
-.bar span{
-  display:block;
-  height:100%;
-  background:linear-gradient(90deg,var(--pink),var(--purple));
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+.achievement{
+    display:flex;
+    gap:15px;
+    align-items:center;
 }
 
-.badge{
-  border:1px solid var(--line);
-  padding:22px;
-  border-radius:15px;
-  text-align:center;
-  background:var(--card);
+.achievement-icon{
+    width:54px;
+    height:54px;
+    flex:none;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    background:var(--primary-light);
+    font-size:25px;
 }
 
-.badge.locked{
-  opacity:.45;
+.achievement.locked{
+    opacity:.45;
+    filter:grayscale(1);
 }
 
-.badge-icon{
-  font-size:40px;
+/* =========================
+   TABLE
+========================= */
+
+table{
+    width:100%;
+    border-collapse:collapse;
 }
+
+th,td{
+    padding:12px 8px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+}
+
+th{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================
+   SETTINGS
+========================= */
 
 .setting{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 0;
-  border-bottom:1px solid var(--line);
-  gap:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:17px 0;
+    border-bottom:1px solid var(--border);
 }
 
-footer{
-  text-align:center;
-  color:var(--muted);
-  padding:30px 15px;
-  font-size:13px;
+.setting:last-child{
+    border-bottom:0;
 }
+
+.setting-info strong{
+    display:block;
+}
+
+.setting-info small{
+    color:var(--muted);
+}
+
+.switch{
+    position:relative;
+    width:48px;
+    height:27px;
+    flex:none;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#94a3a1;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:21px;
+    height:21px;
+    left:3px;
+    top:3px;
+    background:white;
+    border-radius:50%;
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:var(--primary);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(21px);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,20px);
+    background:#17201f;
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:999;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search{
+    width:100%;
+    padding:13px 15px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    outline:none;
+}
+
+.search:focus{
+    border-color:var(--primary);
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
-  .grid,
-  .note-grid{
-    grid-template-columns:1fr;
-  }
+    .header-inner{
+        align-items:flex-start;
+        flex-direction:column;
+    }
 
-  header h1{
-    font-size:38px;
-  }
+    nav{
+        width:100%;
+    }
 
-  .hero{
-    padding:28px;
-  }
-}
+    .grid-2,
+    .grid-3{
+        grid-template-columns:1fr;
+    }
 
-@media(max-width:600px){
-  nav{
-    overflow-x:auto;
-    justify-content:flex-start;
-  }
+    main{
+        padding:22px 14px 60px;
+    }
 
-  nav button{
-    flex:0 0 auto;
-  }
+    .hero{
+        padding:28px 22px;
+    }
 
-  main{
-    width:94%;
-  }
+    .quiz-question{
+        font-size:21px;
+    }
 
-  .card{
-    padding:18px;
-  }
-
-  .quiz-top{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .quiz-actions{
-    flex-direction:column;
-  }
-
-  .quiz-actions button{
-    width:100%;
-  }
-}
-
-@media print{
-  nav,
-  .no-print,
-  header,
-  footer,
-  button{
-    display:none!important;
-  }
-
-  .section{
-    display:block!important;
-  }
-
-  body{
-    background:white;
-    color:black;
-  }
-
-  .card,
-  .note{
-    box-shadow:none;
-    break-inside:avoid;
-  }
+    .setting{
+        align-items:flex-start;
+    }
 }
 </style>
 </head>
@@ -517,1772 +825,3236 @@ footer{
 <body>
 
 <header>
-  <div class="small">Platform Pembelajaran Interaktif</div>
-  <h1>NurQuest</h1>
-  <p>Akhlak Islamiah — nota ringkas, latihan interaktif dan ulang kaji.</p>
-</header>
+<div class="header-inner">
 
-<nav>
-  <button class="active" onclick="showSection('home',this)">Utama</button>
-  <button onclick="showSection('notes',this)">Nota</button>
-  <button onclick="showSection('quiz',this)">Kuiz</button>
-  <button onclick="showSection('performance',this)">Prestasi</button>
-  <button onclick="showSection('achievements',this)">Pencapaian</button>
-  <button onclick="showSection('settings',this)">Tetapan</button>
-</nav>
+    <div class="brand" onclick="showSection('home')">
+        <div class="brand-icon">☪</div>
+        <div>
+            <h1>NurQuest</h1>
+            <small>Akhlak Islamiah</small>
+        </div>
+    </div>
+
+    <nav>
+        <button data-section="home" onclick="showSection('home')">Utama</button>
+        <button data-section="notes" onclick="showSection('notes')">📚 Nota</button>
+        <button data-section="quiz" onclick="showSection('quiz')">📝 Kuiz</button>
+        <button data-section="performance" onclick="showSection('performance')">📊 Prestasi</button>
+        <button data-section="achievements" onclick="showSection('achievements')">🏆 Pencapaian</button>
+        <button data-section="settings" onclick="showSection('settings')">⚙️ Tetapan</button>
+    </nav>
+
+</div>
+</header>
 
 <main>
 
-<!-- HOME -->
+<!-- =========================
+     HOME
+========================= -->
+
 <section id="home" class="section active">
 
-  <div class="card hero">
-    <div class="eyebrow">Selamat Datang</div>
-    <h2>Belajar Akhlak Islamiah dengan lebih teratur.</h2>
-    <p class="lead">
-      Baca nota ringkas, uji kefahaman melalui kuiz dan semak prestasi pembelajaran anda.
-    </p>
+    <div class="hero">
+        <h2>Belajar Islam. Bina Akhlak. Jadi Lebih Baik.</h2>
+        <p>
+            Platform pembelajaran Islamiah yang ringkas, interaktif dan
+            moden untuk membantu anda memahami ilmu serta mengamalkannya
+            dalam kehidupan seharian.
+        </p>
 
-    <button class="btn" onclick="goTo('notes')">
-      Mula Belajar
-    </button>
-  </div>
+        <div class="hero-actions">
+            <button class="btn btn-white" onclick="showSection('notes')">
+                📚 Mula Belajar
+            </button>
 
-  <div class="grid">
+            <button class="btn btn-outline"
+                    style="color:white;border-color:rgba(255,255,255,.5)"
+                    onclick="showSection('quiz')">
+                📝 Cuba Kuiz
+            </button>
+        </div>
 
-    <div class="mini">
-      <h3>📚 Nota</h3>
-      <p>
-        Enam topik utama Akhlak Islamiah dalam bentuk ringkas dan mudah diimbas.
-      </p>
-      <button class="btn secondary" onclick="goTo('notes')">
-        Lihat Nota
-      </button>
+        <div class="xp-box">
+            <div class="xp-top">
+                <span id="homeLevel">Level 1 · Pencetus Akhlak</span>
+                <span id="homeXP">0 / 100 XP</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="homeXPBar"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="mini">
-      <h3>📝 Kuiz</h3>
-      <p>
-        Uji kefahaman melalui Zon Santai atau Zon Cabaran.
-      </p>
-      <button class="btn secondary" onclick="goTo('quiz')">
-        Mulakan Kuiz
-      </button>
+    <div class="grid grid-3">
+
+        <div class="card stat-card">
+            <div class="stat-icon">⭐</div>
+            <div>
+                <div class="stat-value" id="statXP">0</div>
+                <div class="stat-label">Jumlah XP</div>
+            </div>
+        </div>
+
+        <div class="card stat-card">
+            <div class="stat-icon">🔥</div>
+            <div>
+                <div class="stat-value" id="statStreak">0</div>
+                <div class="stat-label">Hari berturut-turut</div>
+            </div>
+        </div>
+
+        <div class="card stat-card">
+            <div class="stat-icon">✓</div>
+            <div>
+                <div class="stat-value" id="statCorrect">0</div>
+                <div class="stat-label">Jawapan betul</div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="mini">
-      <h3>📊 Prestasi</h3>
-      <p>
-        Lihat markah, sejarah percubaan dan topik yang perlu diberi perhatian.
-      </p>
-      <button class="btn secondary" onclick="goTo('performance')">
-        Lihat Prestasi
-      </button>
-    </div>
+    <br>
 
-  </div>
+    <h2 style="margin-bottom:14px">Topik Pembelajaran</h2>
 
-  <div class="card">
-    <div class="eyebrow">Cara Menggunakan</div>
-    <h3>Langkah pembelajaran</h3>
-
-    <ol>
-      <li>Baca nota yang disediakan.</li>
-      <li>Pilih mod kuiz.</li>
-      <li>Jawab soalan dan lihat maklum balas.</li>
-      <li>Semak keputusan.</li>
-      <li>Ulang kaji soalan yang salah.</li>
-    </ol>
-  </div>
+    <div class="grid grid-2" id="homeTopics"></div>
 
 </section>
 
 
-<!-- NOTES -->
+<!-- =========================
+     NOTES
+========================= -->
+
 <section id="notes" class="section">
 
-  <div class="card">
+    <div class="notes-header">
+        <div>
+            <h2>📚 Nota Pembelajaran</h2>
+            <p class="muted">Pilih topik untuk mula membaca.</p>
+        </div>
 
-    <div class="eyebrow">Bahan Pembelajaran</div>
-    <h2>Nota Akhlak Islamiah</h2>
-
-    <p class="lead">
-      Gunakan carian untuk mencari topik atau kata kunci tertentu.
-    </p>
-
-    <input
-      id="noteSearch"
-      class="search"
-      type="text"
-      placeholder="Cari nota... contoh: sabar, amanah, ibu bapa"
-      oninput="filterNotes()"
-    >
-
-    <div class="toggle-row">
-      <button class="toggle selected" id="rumiBtn" onclick="setLanguage('rumi')">
-        Rumi
-      </button>
-
-      <button class="toggle" id="jawiBtn" onclick="setLanguage('jawi')">
-        Jawi
-      </button>
-
-      <button class="btn secondary no-print" onclick="window.print()">
-        🖨 Cetak / PDF
-      </button>
+        <input
+            class="search"
+            style="max-width:320px"
+            id="noteSearch"
+            placeholder="🔍 Cari nota..."
+            oninput="renderNotes()"
+        >
     </div>
 
-  </div>
-
-
-  <div id="notesContainer" class="note-grid">
-
-    <article class="note">
-      <div class="note-number">1</div>
-      <h3 class="rumi">Maksud Akhlak</h3>
-      <h3 class="jawi" style="display:none">مقصود اخلاق</h3>
-
-      <p class="rumi">
-        Akhlak ialah sifat atau tingkah laku seseorang yang lahir daripada jiwa
-        dan dilakukan secara berterusan.
-      </p>
-
-      <p class="jawi" style="display:none">
-        اخلاق اياله صيفت اتاو تيڠكه لاكو سسأورڠ يڠ لاهير درڤد جيوا دان دلاکوکن سچارا برتروسن.
-      </p>
-
-      <p class="rumi">
-        Dalam Islam, akhlak berasaskan al-Quran dan al-Sunnah.
-      </p>
-
-      <div class="chips">
-        <span class="chip">Al-Quran</span>
-        <span class="chip">Al-Sunnah</span>
-        <span class="chip">Tingkah laku</span>
-      </div>
-    </article>
-
-
-    <article class="note">
-      <div class="note-number">2</div>
-      <h3 class="rumi">Akhlak Mahmudah</h3>
-      <h3 class="jawi" style="display:none">اخلاق محمودۃ</h3>
-
-      <p class="rumi">
-        Akhlak mahmudah ialah akhlak terpuji yang disukai oleh Allah SWT.
-      </p>
-
-      <div class="chips">
-        <span class="chip">Jujur</span>
-        <span class="chip">Amanah</span>
-        <span class="chip">Sabar</span>
-        <span class="chip">Tawaduk</span>
-        <span class="chip">Ikhlas</span>
-        <span class="chip">Pemaaf</span>
-      </div>
-
-      <ul>
-        <li>Jujur — bercakap benar.</li>
-        <li>Amanah — melaksanakan tanggungjawab.</li>
-        <li>Sabar — mengawal diri ketika menghadapi kesukaran.</li>
-        <li>Tawaduk — tidak sombong.</li>
-        <li>Ikhlas — melakukan sesuatu kerana Allah SWT.</li>
-        <li>Pemaaf — memaafkan kesalahan orang lain.</li>
-      </ul>
-    </article>
-
-
-    <article class="note">
-      <div class="note-number">3</div>
-      <h3 class="rumi">Akhlak Mazmumah</h3>
-      <h3 class="jawi" style="display:none">اخلاق مذمومۃ</h3>
-
-      <p>
-        Akhlak mazmumah ialah akhlak tercela yang perlu dijauhi.
-      </p>
-
-      <div class="chips">
-        <span class="chip">Dusta</span>
-        <span class="chip">Hasad dengki</span>
-        <span class="chip">Takabbur</span>
-        <span class="chip">Riya'</span>
-        <span class="chip">Khianat</span>
-        <span class="chip">Fitnah</span>
-      </div>
-    </article>
-
-
-    <article class="note">
-      <div class="note-number">4</div>
-      <h3>Akhlak kepada Allah SWT</h3>
-
-      <ul>
-        <li>Taat kepada perintah Allah.</li>
-        <li>Menjauhi larangan Allah.</li>
-        <li>Bersyukur atas nikmat.</li>
-        <li>Bertawakal selepas berusaha.</li>
-        <li>Mengingati Allah melalui zikir.</li>
-      </ul>
-    </article>
-
-
-    <article class="note">
-      <div class="note-number">5</div>
-      <h3>Akhlak kepada Ibu Bapa</h3>
-
-      <ul>
-        <li>Menghormati dan mentaati mereka dalam perkara yang baik.</li>
-        <li>Bercakap dengan sopan.</li>
-        <li>Membantu mereka.</li>
-        <li>Tidak menyakiti hati mereka.</li>
-        <li>Mendoakan kesejahteraan mereka.</li>
-      </ul>
-    </article>
-
-
-    <article class="note">
-      <div class="note-number">6</div>
-      <h3>Akhlak kepada Masyarakat</h3>
-
-      <ul>
-        <li>Menghormati orang lain.</li>
-        <li>Menjaga hubungan sesama manusia.</li>
-        <li>Saling membantu.</li>
-        <li>Tidak menyebarkan fitnah.</li>
-        <li>Bercakap dengan baik.</li>
-        <li>Menghormati hak orang lain.</li>
-      </ul>
-    </article>
-
-  </div>
-
-  <div class="card">
-    <h3>Formula Mudah</h3>
-    <p><b>Mahmudah = Terpuji</b></p>
-    <p><b>Mazmumah = Tercela</b></p>
-  </div>
+    <div id="notesContainer"></div>
 
 </section>
 
 
-<!-- QUIZ -->
+<!-- =========================
+     QUIZ
+========================= -->
+
 <section id="quiz" class="section">
 
-  <div class="card no-print">
+    <div class="quiz-wrapper">
 
-    <div class="eyebrow">Pilih Mod</div>
-    <h2>Kuiz Akhlak Islamiah</h2>
+        <div id="quizStart">
 
-    <div class="toggle-row">
+            <div class="card">
+                <h2>📝 Kuiz NurQuest</h2>
 
-      <button
-        class="toggle selected"
-        id="relaxedMode"
-        onclick="startQuiz('relaxed')">
-        🌸 Zon Santai
-      </button>
+                <p class="muted" style="margin-top:7px">
+                    Uji kefahaman anda berdasarkan nota pembelajaran.
+                    Kedudukan jawapan akan diacak untuk setiap soalan.
+                </p>
 
-      <button
-        class="toggle"
-        id="challengeMode"
-        onclick="startQuiz('challenge')">
-        ⚡ Zon Cabaran
-      </button>
+                <br>
 
-      <button
-        class="toggle"
-        onclick="reviewWrong()">
-        🔁 Ulang Kaji Soalan Salah
-      </button>
+                <div class="mode-switch">
 
-    </div>
+                    <button
+                        id="relaxedBtn"
+                        class="mode-btn active"
+                        onclick="selectMode('relaxed')">
+                        🌿 Zon Santai
+                    </button>
 
-  </div>
+                    <button
+                        id="challengeBtn"
+                        class="mode-btn"
+                        onclick="selectMode('challenge')">
+                        ⚡ Zon Cabaran
+                    </button>
 
+                </div>
 
-  <div id="quizBox" class="card">
+                <div class="grid grid-2">
 
-    <div class="quiz-top">
-      <div style="width:100%">
-        <b id="questionNumber">Soalan 1 / 10</b>
+                    <div class="card"
+                         style="box-shadow:none">
+                        <strong>🌿 Zon Santai</strong>
+                        <p class="muted">
+                            Tiada had masa. Sesuai untuk belajar.
+                        </p>
+                    </div>
 
-        <div class="progress">
-          <div id="progressBar" class="progress-bar"></div>
+                    <div class="card"
+                         style="box-shadow:none">
+                        <strong>⚡ Zon Cabaran</strong>
+                        <p class="muted">
+                            20 saat untuk setiap soalan.
+                        </p>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button class="btn btn-primary"
+                        onclick="startQuiz()">
+                    Mula Kuiz
+                </button>
+
+                <button class="btn btn-outline"
+                        onclick="reviewWrong()">
+                    🔁 Ulang Soalan Salah
+                </button>
+
+            </div>
+
         </div>
-      </div>
 
-      <div id="timer" class="timer"></div>
+
+        <div id="quizArea" style="display:none">
+
+            <div class="quiz-header">
+                <span class="quiz-number"
+                      id="questionNumber">
+                    Soalan 1 / 10
+                </span>
+
+                <span class="timer"
+                      id="timer">
+                    —
+                </span>
+            </div>
+
+            <div class="progress quiz-progress">
+                <div class="progress-bar"
+                     id="progressBar"
+                     style="width:0%">
+                </div>
+            </div>
+
+            <div class="card">
+
+                <div class="quiz-question"
+                     id="questionText">
+                </div>
+
+                <div class="options"
+                     id="options">
+                </div>
+
+                <div id="feedback"
+                     class="feedback">
+                </div>
+
+                <div class="quiz-actions">
+
+                    <button
+                        id="nextButton"
+                        class="btn btn-primary"
+                        style="display:none"
+                        onclick="nextQuestion()">
+                        Seterusnya →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="quizResult"
+             style="display:none">
+        </div>
+
     </div>
-
-    <div id="questionText" class="question">
-      Tekan "Zon Santai" untuk memulakan kuiz.
-    </div>
-
-    <div id="options"></div>
-
-    <div id="feedback"></div>
-
-    <div class="quiz-actions">
-
-      <button
-        id="hintButton"
-        class="btn secondary"
-        onclick="showHint()">
-        💡 Petunjuk
-      </button>
-
-      <button
-        id="nextButton"
-        class="btn"
-        onclick="nextQuestion()"
-        disabled>
-        Seterusnya
-      </button>
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<!-- PERFORMANCE -->
+<!-- =========================
+     PERFORMANCE
+========================= -->
+
 <section id="performance" class="section">
 
-  <div class="card">
+    <h2>📊 Prestasi Pembelajaran</h2>
 
-    <div class="eyebrow">Analitik Pembelajaran</div>
-    <h2>Prestasi Anda</h2>
+    <p class="muted" style="margin:5px 0 20px">
+        Lihat perkembangan pembelajaran anda.
+    </p>
 
-    <div class="grid">
+    <div class="grid grid-3">
 
-      <div class="mini">
-        <h3>🔥 Streak</h3>
-        <p id="streakText">0 hari</p>
-      </div>
+        <div class="card">
+            <div class="stat-label">XP</div>
+            <div class="stat-value" id="perfXP">0</div>
+        </div>
 
-      <div class="mini">
-        <h3>🏆 Markah Terbaik</h3>
-        <p id="bestScore">Belum ada</p>
-      </div>
+        <div class="card">
+            <div class="stat-label">Soalan dijawab</div>
+            <div class="stat-value" id="perfAnswered">0</div>
+        </div>
 
-      <div class="mini">
-        <h3>📖 Nota Dibaca</h3>
-        <p id="notesRead">0 / 6</p>
-      </div>
+        <div class="card">
+            <div class="stat-label">Ketepatan</div>
+            <div class="stat-value" id="perfAccuracy">0%</div>
+        </div>
 
     </div>
 
-  </div>
+    <br>
 
+    <div class="card">
 
-  <div class="card">
+        <h3>📚 Kemajuan Topik</h3>
 
-    <h3>Topik yang perlu diberi perhatian</h3>
+        <div id="topicPerformance"
+             style="margin-top:15px">
+        </div>
 
-    <div id="topicStats"></div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h3>Sejarah Kuiz</h3>
-
-    <div id="history">
-      <p class="lead">Belum ada rekod kuiz.</p>
     </div>
 
-  </div>
+    <br>
+
+    <div class="card">
+
+        <h3>🔁 Soalan Yang Pernah Salah</h3>
+
+        <div id="wrongQuestionsList"
+             style="margin-top:15px">
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- ACHIEVEMENTS -->
+<!-- =========================
+     ACHIEVEMENTS
+========================= -->
+
 <section id="achievements" class="section">
 
-  <div class="card">
+    <h2>🏆 Pencapaian</h2>
 
-    <div class="eyebrow">Pencapaian</div>
-    <h2>Lencana Akhlak</h2>
+    <p class="muted" style="margin:5px 0 20px">
+        Pencapaian anda berdasarkan aktiviti pembelajaran.
+    </p>
 
-    <div class="grid">
-
-      <div id="badgeHero" class="badge locked">
-        <div class="badge-icon">🏆</div>
-        <h3>Wira Akhlak</h3>
-        <p>Jawab kuiz dengan markah 100%.</p>
-      </div>
-
-      <div id="badgeReader" class="badge locked">
-        <div class="badge-icon">📚</div>
-        <h3>Pencari Ilmu</h3>
-        <p>Baca semua 6 topik nota.</p>
-      </div>
-
-      <div id="badgeStreak" class="badge locked">
-        <div class="badge-icon">🔥</div>
-        <h3>Istiqamah</h3>
-        <p>Capai streak 3 hari.</p>
-      </div>
-
+    <div class="grid grid-2"
+         id="achievementsContainer">
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- SETTINGS -->
+<!-- =========================
+     SETTINGS
+========================= -->
+
 <section id="settings" class="section">
 
-  <div class="card">
+    <h2>⚙️ Tetapan</h2>
 
-    <div class="eyebrow">Tetapan</div>
-    <h2>Sesuaikan NurQuest</h2>
+    <p class="muted" style="margin:5px 0 20px">
+        Sesuaikan pengalaman pembelajaran anda.
+    </p>
+
+    <div class="card">
+
+        <!-- SOUND -->
+        <div class="setting">
+
+            <div class="setting-info">
+                <strong>🔊 Bunyi jawapan</strong>
+                <small>
+                    Bunyi “ding” untuk betul dan “buzz” untuk salah.
+                </small>
+            </div>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="soundToggle"
+                    onchange="toggleSound(this.checked)">
+                <span class="slider"></span>
+            </label>
+
+        </div>
 
 
-    <div class="setting">
+        <!-- DARK MODE -->
+        <div class="setting">
 
-      <div>
-        <b>🌙 Mod Gelap</b>
-        <div class="lead">Gunakan tema gelap.</div>
-      </div>
+            <div class="setting-info">
+                <strong>🌙 Mod gelap</strong>
+                <small>
+                    Gunakan tema gelap untuk pembelajaran waktu malam.
+                </small>
+            </div>
 
-      <button class="toggle" onclick="toggleDark()">
-        Tukar
-      </button>
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="darkToggle"
+                    onchange="toggleDark(this.checked)">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <!-- EASY READ -->
+        <div class="setting">
+
+            <div class="setting-info">
+                <strong>📖 Mod mudah dibaca</strong>
+                <small>
+                    Besarkan teks dan jarakkan kandungan.
+                </small>
+            </div>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="easyReadToggle"
+                    onchange="toggleEasyRead(this.checked)">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <!-- RESET -->
+        <div class="setting">
+
+            <div class="setting-info">
+                <strong>♻️ Reset kemajuan</strong>
+                <small>
+                    Padam XP, streak, pencapaian dan rekod kuiz.
+                </small>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                    onclick="resetProgress()">
+                Reset
+            </button>
+
+        </div>
 
     </div>
-
-
-    <div class="setting">
-
-      <div>
-        <b>🔤 Saiz Font</b>
-        <div class="lead">Besarkan atau kecilkan teks.</div>
-      </div>
-
-      <div>
-        <button class="toggle" onclick="changeFont(-1)">A−</button>
-        <button class="toggle" onclick="changeFont(1)">A+</button>
-      </div>
-
-    </div>
-
-
-    <div class="setting">
-
-      <div>
-        <b>📖 Easy Read</b>
-        <div class="lead">Gunakan fon yang lebih mudah dibaca.</div>
-      </div>
-
-      <button class="toggle" onclick="toggleEasy()">
-        Tukar
-      </button>
-
-    </div>
-
-
-    <div class="setting">
-
-      <div>
-        <b>🗑 Reset Data</b>
-        <div class="lead">Padam sejarah dan kemajuan yang tersimpan.</div>
-      </div>
-
-      <button class="toggle" onclick="resetData()">
-        Reset
-      </button>
-
-    </div>
-
-  </div>
 
 </section>
 
 </main>
 
-<footer>
-  NurQuest • Akhlak Islamiah
-</footer>
+
+<div class="toast" id="toast"></div>
 
 
 <script>
 
-/* =========================
-   SOALAN
-========================= */
+/* =========================================================
+   NURQUEST DATA
+========================================================= */
 
-const masterDeck = [
+const TOPICS = [
 
 {
-q:"Apakah maksud akhlak?",
-a:[
-"Sifat atau tingkah laku yang lahir daripada jiwa",
-"Kekayaan seseorang",
-"Ilmu matematik",
-"Keadaan fizikal"
-],
-correct:0,
-topic:"Maksud Akhlak",
-hint:"Ia berkaitan dengan sifat dan tingkah laku.",
-explain:"Akhlak ialah sifat atau tingkah laku seseorang yang lahir daripada jiwa dan dilakukan secara berterusan."
+    id:"akhlak",
+    icon:"🌿",
+    title:"Akhlak Islamiah",
+    description:"Membina peribadi yang baik dalam hubungan dengan Allah dan manusia.",
+
+    notes:[
+
+    {
+        title:"Maksud Akhlak",
+        content:`
+        <p>
+        Akhlak merujuk kepada sifat, sikap dan tingkah laku seseorang
+        yang lahir dalam kehidupan seharian.
+        </p>
+
+        <p>
+        Dalam Islam, akhlak bukan sekadar kelakuan baik terhadap manusia,
+        tetapi juga melibatkan hubungan dengan Allah SWT, ibu bapa,
+        guru, masyarakat dan alam sekitar.
+        </p>
+        `,
+        source:"Rujukan umum: al-Quran dan hadis"
+    },
+
+    {
+        title:"Akhlak Mahmudah",
+        content:`
+        <p>
+        <strong>Akhlak mahmudah</strong> ialah akhlak yang terpuji
+        dan disukai dalam Islam.
+        </p>
+
+        <ul>
+            <li>Jujur</li>
+            <li>Amanah</li>
+            <li>Sabar</li>
+            <li>Rendah hati</li>
+            <li>Menepati janji</li>
+            <li>Berbuat baik kepada orang lain</li>
+        </ul>
+
+        <p>
+        Akhlak yang baik perlu diamalkan secara konsisten,
+        bukan hanya ketika dilihat oleh orang lain.
+        </p>
+        `,
+        source:"Surah al-Qalam 68:4"
+    },
+
+    {
+        title:"Akhlak Mazmumah",
+        content:`
+        <p>
+        <strong>Akhlak mazmumah</strong> ialah sifat dan tingkah laku
+        yang tercela.
+        </p>
+
+        <ul>
+            <li>Berbohong</li>
+            <li>Hasad dengki</li>
+            <li>Sombong</li>
+            <li>Mengumpat</li>
+            <li>Fitnah</li>
+            <li>Khianat</li>
+        </ul>
+
+        <p>
+        Seorang Muslim digalakkan mengenal sifat buruk dalam dirinya
+        supaya dapat memperbaikinya.
+        </p>
+        `,
+        source:"Rujukan umum akhlak Islamiah"
+    },
+
+    {
+        title:"Akhlak kepada Ibu Bapa",
+        content:`
+        <p>
+        Islam memberikan kedudukan yang tinggi kepada ibu bapa.
+        </p>
+
+        <ul>
+            <li>Bercakap dengan sopan.</li>
+            <li>Membantu apabila diperlukan.</li>
+            <li>Mendengar nasihat yang baik.</li>
+            <li>Tidak meninggikan suara.</li>
+            <li>Mendoakan mereka.</li>
+        </ul>
+
+        <p>
+        Berbuat baik kepada ibu bapa perlu dilakukan selagi tidak
+        bercanggah dengan perintah Allah.
+        </p>
+        `,
+        source:"Surah al-Isra' 17:23–24"
+    },
+
+    {
+        title:"Akhlak dengan Guru",
+        content:`
+        <p>
+        Guru merupakan orang yang menyampaikan ilmu.
+        Menghormati guru termasuk menjaga tutur kata dan adab
+        ketika berinteraksi.
+        </p>
+
+        <ul>
+            <li>Mendengar ketika guru bercakap.</li>
+            <li>Bertanya dengan sopan.</li>
+            <li>Menghargai ilmu yang diberikan.</li>
+            <li>Tidak memperlekehkan guru.</li>
+            <li>Menjaga disiplin ketika pembelajaran.</li>
+        </ul>
+        `,
+        source:"Prinsip adab menuntut ilmu"
+    },
+
+    {
+        title:"Akhlak di Media Sosial",
+        content:`
+        <p>
+        Media sosial juga merupakan ruang untuk mengamalkan akhlak.
+        Apa yang ditulis dan disebarkan mempunyai kesan kepada orang lain.
+        </p>
+
+        <ul>
+            <li>Semak maklumat sebelum berkongsi.</li>
+            <li>Elakkan fitnah dan penghinaan.</li>
+            <li>Jaga privasi orang lain.</li>
+            <li>Gunakan bahasa yang baik.</li>
+            <li>Jangan menyebarkan berita palsu.</li>
+        </ul>
+        `,
+        source:"Surah al-Hujurat 49:6"
+    },
+
+    {
+        title:"Akhlak terhadap Alam Sekitar",
+        content:`
+        <p>
+        Alam sekitar ialah amanah Allah kepada manusia.
+        Menjaganya termasuk dalam tanggungjawab kita.
+        </p>
+
+        <ul>
+            <li>Tidak membuang sampah merata-rata.</li>
+            <li>Menggunakan air secara berhemah.</li>
+            <li>Menjaga tumbuhan dan haiwan.</li>
+            <li>Mengurangkan pembaziran.</li>
+        </ul>
+        `,
+        source:"Surah al-A'raf 7:31"
+    }
+
+    ],
+
+    cards:[
+
+    {
+        title:"AMANAH",
+        text:"Lakukan tanggungjawab walaupun tiada siapa melihat.",
+        situation:"Anda diberi tugasan kumpulan. Jangan mengambil kredit atas kerja orang lain."
+    },
+
+    {
+        title:"TABAYYUN",
+        text:"Semak sebelum menyebarkan.",
+        situation:"Anda menerima berita mengejutkan dalam WhatsApp. Semak sumber sebelum berkongsi."
+    },
+
+    {
+        title:"SABAR",
+        text:"Kawal tindak balas ketika marah.",
+        situation:"Seseorang membuat komen yang menyakitkan hati. Berhenti seketika sebelum membalas."
+    },
+
+    {
+        title:"JUJUR",
+        text:"Kebenaran tetap penting walaupun sukar.",
+        situation:"Anda terlupa menyiapkan tugasan. Jangan mereka-reka alasan palsu."
+    }
+
+    ],
+
+    questions:[
+
+    {
+        question:"Apakah maksud akhlak?",
+        options:[
+            "Sifat dan tingkah laku seseorang",
+            "Ilmu berkaitan matematik",
+            "Peraturan permainan",
+            "Adat sesuatu tempat"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Yang manakah contoh akhlak mahmudah?",
+        options:[
+            "Sombong",
+            "Jujur",
+            "Hasad",
+            "Mengumpat"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Yang manakah contoh akhlak mazmumah?",
+        options:[
+            "Amanah",
+            "Sabar",
+            "Hasad dengki",
+            "Rendah hati"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Bagaimanakah cara bercakap dengan ibu bapa?",
+        options:[
+            "Dengan suara kasar",
+            "Dengan sopan",
+            "Dengan sindiran",
+            "Dengan kemarahan"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah adab ketika guru sedang menerangkan?",
+        options:[
+            "Bercakap dengan rakan",
+            "Bermain telefon",
+            "Mendengar dengan baik",
+            "Mengganggu kelas"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Apakah tindakan terbaik apabila menerima berita yang meragukan?",
+        options:[
+            "Terus berkongsi",
+            "Semak kesahihan berita",
+            "Tambah cerita",
+            "Sebarkan kepada semua"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah contoh menjaga alam sekitar?",
+        options:[
+            "Membuang sampah ke sungai",
+            "Membazir air",
+            "Menjaga kebersihan",
+            "Merosakkan tumbuhan"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Apakah maksud amanah?",
+        options:[
+            "Melaksanakan tanggungjawab dengan baik",
+            "Mengelakkan semua tanggungjawab",
+            "Mengambil hak orang lain",
+            "Menyembunyikan kesalahan"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Apakah tindakan yang sesuai apabila berasa sangat marah?",
+        options:[
+            "Terus menghina orang",
+            "Membalas dengan lebih kasar",
+            "Mengawal diri sebelum bertindak",
+            "Menyebarkan kemarahan di media sosial"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Mengapa kita perlu menjaga tutur kata di media sosial?",
+        options:[
+            "Supaya mendapat banyak followers",
+            "Kerana kata-kata boleh menyakiti orang lain",
+            "Supaya semua orang bersetuju",
+            "Supaya menjadi terkenal"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah contoh sifat rendah hati?",
+        options:[
+            "Menganggap diri lebih baik daripada semua orang",
+            "Menerima teguran dengan baik",
+            "Menghina orang lain",
+            "Menunjukkan kekayaan"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah yang perlu dilakukan jika tersilap terhadap seseorang?",
+        options:[
+            "Menyalahkan orang lain",
+            "Meminta maaf",
+            "Berpura-pura tiada apa berlaku",
+            "Membalas kesalahan"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah hubungan akhlak dengan kehidupan harian?",
+        options:[
+            "Akhlak hanya digunakan di masjid",
+            "Akhlak hanya digunakan ketika peperiksaan",
+            "Akhlak diamalkan dalam kehidupan seharian",
+            "Akhlak tidak berkaitan dengan tindakan"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Apakah contoh sifat amanah di sekolah?",
+        options:[
+            "Meniru jawapan",
+            "Menyiapkan tanggungjawab yang diberikan",
+            "Mengambil kerja rakan",
+            "Menipu guru"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah prinsip penting ketika berkongsi maklumat?",
+        options:[
+            "Cepat lebih penting daripada benar",
+            "Semak dahulu sebelum berkongsi",
+            "Kongsi semua perkara",
+            "Percaya semua yang tular"
+        ],
+        correct:1
+    }
+
+    ]
 },
 
-{
-q:"Akhlak dalam Islam berasaskan kepada...",
-a:[
-"Al-Quran dan al-Sunnah",
-"Pendapat manusia sahaja",
-"Media sosial",
-"Tradisi semata-mata"
-],
-correct:0,
-topic:"Maksud Akhlak",
-hint:"Dua sumber utama ajaran Islam.",
-explain:"Akhlak Islam berasaskan al-Quran dan al-Sunnah."
-},
+
+/* =========================================================
+   TOPIC 2
+========================================================= */
 
 {
-q:"Apakah maksud akhlak mahmudah?",
-a:[
-"Akhlak terpuji",
-"Akhlak tercela",
-"Akhlak sementara",
-"Akhlak fizikal"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Mahmudah membawa maksud sesuatu yang dipuji.",
-explain:"Akhlak mahmudah ialah akhlak terpuji yang disukai oleh Allah SWT."
-},
+    id:"pengetahuan",
+    icon:"📖",
+    title:"Pengetahuan Islam",
+    description:"Kisah, amalan dan pengetahuan Islam yang menarik untuk diterokai.",
 
-{
-q:"Yang manakah contoh akhlak mahmudah?",
-a:[
-"Jujur",
-"Fitnah",
-"Takabbur",
-"Khianat"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Pilih sifat yang baik.",
-explain:"Jujur merupakan salah satu contoh akhlak mahmudah."
-},
+    notes:[
 
-{
-q:"Apakah maksud amanah?",
-a:[
-"Melaksanakan tanggungjawab dengan baik",
-"Menipu orang lain",
-"Menyebarkan fitnah",
-"Merendahkan orang lain"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Amanah berkaitan dengan tanggungjawab.",
-explain:"Amanah bermaksud melaksanakan tanggungjawab dengan baik."
-},
+    {
+        title:"Burung Hudhud dalam al-Quran",
+        content:`
+        <p>
+        Burung hudhud disebut dalam kisah Nabi Sulaiman AS.
+        Dalam Surah al-Naml, hudhud membawa berita tentang sebuah
+        kerajaan yang diperintah oleh seorang wanita di Saba'.
+        </p>
 
-{
-q:"Apakah maksud sabar?",
-a:[
-"Mengawal diri ketika menghadapi kesukaran",
-"Menunjukkan kemarahan",
-"Menipu",
-"Menjadi sombong"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Sabar berkaitan dengan kawalan diri.",
-explain:"Sabar ialah kemampuan mengawal diri ketika menghadapi kesukaran."
-},
+        <p>
+        Kisah ini menunjukkan bahawa maklumat perlu disampaikan
+        dengan penuh tanggungjawab dan diperiksa sebelum membuat
+        keputusan.
+        </p>
+        `,
+        source:"Surah al-Naml 27:20–28"
+    },
 
-{
-q:"Apakah maksud tawaduk?",
-a:[
-"Tidak sombong",
-"Menipu",
-"Mengumpat",
-"Hasad dengki"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Lawan kepada sifat sombong.",
-explain:"Tawaduk bermaksud tidak sombong dan merendahkan diri."
-},
+    {
+        title:"Semut dan Nabi Sulaiman AS",
+        content:`
+        <p>
+        Al-Quran menceritakan bahawa seekor semut memberi amaran
+        kepada semut-semut lain supaya masuk ke tempat perlindungan
+        agar tidak dipijak oleh tentera Nabi Sulaiman AS tanpa sedar.
+        </p>
 
-{
-q:"Apakah maksud ikhlas?",
-a:[
-"Melakukan sesuatu kerana Allah SWT",
-"Melakukan sesuatu untuk menunjuk-nunjuk",
-"Menipu orang",
-"Mencari pujian manusia"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Ikhlas berkaitan dengan niat.",
-explain:"Ikhlas bermaksud melakukan sesuatu kerana Allah SWT."
-},
+        <p>
+        Nabi Sulaiman AS tersenyum mendengar kata-kata semut tersebut
+        dan bersyukur kepada Allah.
+        </p>
+        `,
+        source:"Surah al-Naml 27:18–19"
+    },
 
-{
-q:"Apakah maksud akhlak mazmumah?",
-a:[
-"Akhlak tercela",
-"Akhlak terpuji",
-"Akhlak wajib",
-"Akhlak neutral"
-],
-correct:0,
-topic:"Mazmumah",
-hint:"Ia merupakan lawan kepada mahmudah.",
-explain:"Akhlak mazmumah ialah akhlak tercela yang perlu dijauhi."
-},
+    {
+        title:"Apa yang dilakukan selepas bersin?",
+        content:`
+        <p>
+        Islam mengajar umatnya supaya mengingati Allah ketika bersin.
+        Orang yang bersin mengucapkan <strong>Alhamdulillah</strong>.
+        </p>
 
-{
-q:"Yang manakah contoh akhlak mazmumah?",
-a:[
-"Hasad dengki",
-"Jujur",
-"Amanah",
-"Pemaaf"
-],
-correct:0,
-topic:"Mazmumah",
-hint:"Pilih sifat negatif.",
-explain:"Hasad dengki merupakan contoh akhlak mazmumah."
-},
+        <p>
+        Apabila seseorang mengucapkan tahmid selepas bersin,
+        orang yang mendengarnya disunatkan mendoakannya dengan
+        <strong>Yarhamukallah</strong>, dan terdapat jawapan yang
+        diajarkan dalam hadis.
+        </p>
+        `,
+        source:"Sahih al-Bukhari; Sahih Muslim"
+    },
 
-{
-q:"Yang manakah perlu dijauhi oleh seorang Muslim?",
-a:[
-"Fitnah",
-"Memaafkan",
-"Jujur",
-"Menolong"
-],
-correct:0,
-topic:"Mazmumah",
-hint:"Fitnah ialah perbuatan yang tercela.",
-explain:"Fitnah ialah antara akhlak mazmumah yang perlu dijauhi."
-},
+    {
+        title:"Adab ketika menguap",
+        content:`
+        <p>
+        Nabi SAW mengajar beberapa adab ketika menguap.
+        Antaranya ialah berusaha menahan menguap dan menutup mulut.
+        </p>
 
-{
-q:"Bagaimanakah akhlak kepada Allah SWT?",
-a:[
-"Mentaati perintah-Nya",
-"Mengabaikan perintah-Nya",
-"Menyebarkan fitnah",
-"Menjadi sombong"
-],
-correct:0,
-topic:"Allah SWT",
-hint:"Akhlak kepada Allah bermula dengan ketaatan.",
-explain:"Antara akhlak kepada Allah SWT ialah mentaati perintah-Nya."
-},
+        <p>
+        Ini merupakan sebahagian daripada adab menjaga kesopanan
+        dalam kehidupan seharian.
+        </p>
+        `,
+        source:"Sahih al-Bukhari; Sahih Muslim"
+    },
 
-{
-q:"Apakah yang perlu dilakukan selepas berusaha?",
-a:[
-"Bertawakal",
-"Berputus asa",
-"Menipu",
-"Bermegah"
-],
-correct:0,
-topic:"Allah SWT",
-hint:"Usaha diikuti dengan menyerahkan hasil kepada Allah.",
-explain:"Seorang Muslim berusaha dan kemudian bertawakal kepada Allah SWT."
-},
+    {
+        title:"Doa ketika hujan",
+        content:`
+        <p>
+        Hujan merupakan salah satu bentuk rahmat Allah.
+        Antara doa yang diriwayatkan ketika melihat hujan ialah
+        memohon agar hujan tersebut menjadi hujan yang bermanfaat.
+        </p>
 
-{
-q:"Apakah salah satu cara mengingati Allah SWT?",
-a:[
-"Berzikir",
-"Menipu",
-"Memfitnah",
-"Takabbur"
-],
-correct:0,
-topic:"Allah SWT",
-hint:"Ia merupakan amalan mengingati Allah.",
-explain:"Zikir merupakan salah satu cara mengingati Allah SWT."
-},
+        <p>
+        Islam mengajar manusia supaya melihat nikmat alam sebagai
+        sebab untuk mengingati dan bersyukur kepada Allah.
+        </p>
+        `,
+        source:"Sahih al-Bukhari"
+    },
 
-{
-q:"Apakah yang perlu dilakukan terhadap nikmat Allah?",
-a:[
-"Bersyukur",
-"Menolak",
-"Membazir",
-"Bermegah"
-],
-correct:0,
-topic:"Allah SWT",
-hint:"Syukur ialah menghargai nikmat.",
-explain:"Kita hendaklah bersyukur atas nikmat yang diberikan oleh Allah SWT."
-},
+    {
+        title:"Bagaimana hadis dinilai?",
+        content:`
+        <p>
+        Ulama hadis membangunkan kaedah yang sangat teliti untuk
+        menilai riwayat.
+        </p>
 
-{
-q:"Bagaimanakah akhlak yang baik kepada ibu bapa?",
-a:[
-"Bercakap dengan sopan",
-"Menjerit kepada mereka",
-"Menyakiti hati mereka",
-"Mengabaikan mereka"
-],
-correct:0,
-topic:"Ibu Bapa",
-hint:"Gunakan tutur kata yang baik.",
-explain:"Kita hendaklah bercakap dengan sopan kepada ibu bapa."
-},
+        <ul>
+            <li>Sanad — rangkaian perawi.</li>
+            <li>Perawi — penelitian terhadap individu yang meriwayatkan.</li>
+            <li>Matan — kandungan hadis.</li>
+            <li>Perbandingan dengan riwayat lain.</li>
+        </ul>
 
-{
-q:"Apakah tanggungjawab kita kepada ibu bapa?",
-a:[
-"Membantu mereka",
-"Menyakiti mereka",
-"Memfitnah mereka",
-"Menghina mereka"
-],
-correct:0,
-topic:"Ibu Bapa",
-hint:"Akhlak yang baik termasuk memberikan bantuan.",
-explain:"Kita hendaklah membantu ibu bapa dan menjaga kebajikan mereka."
-},
+        <p>
+        Ini ialah gambaran ringkas. Ilmu hadis mempunyai bidang
+        yang jauh lebih luas dan terperinci.
+        </p>
+        `,
+        source:"Pengenalan kepada Ulum al-Hadith"
+    },
 
-{
-q:"Apakah yang patut kita lakukan untuk ibu bapa?",
-a:[
-"Mendoakan mereka",
-"Menghina mereka",
-"Mengabaikan mereka",
-"Memfitnah mereka"
-],
-correct:0,
-topic:"Ibu Bapa",
-hint:"Doa ialah salah satu bentuk bakti.",
-explain:"Kita hendaklah mendoakan kesejahteraan ibu bapa."
-},
+    {
+        title:"Mengapa umat Islam menghadap Kaabah?",
+        content:`
+        <p>
+        Kaabah menjadi kiblat umat Islam dalam solat.
+        Menghadap kiblat merupakan sebahagian daripada aturan ibadah
+        yang ditetapkan Allah.
+        </p>
 
-{
-q:"Kita hendaklah mentaati ibu bapa dalam...",
-a:[
-"Perkara yang baik",
-"Perkara yang salah",
-"Semua perkara tanpa pengecualian",
-"Perkara yang memudaratkan"
-],
-correct:0,
-topic:"Ibu Bapa",
-hint:"Ketaatan mempunyai batas.",
-explain:"Kita mentaati ibu bapa dalam perkara yang baik dan tidak bercanggah dengan ajaran Islam."
-},
+        <p>
+        Kiblat yang sama juga menjadi simbol kesatuan umat Islam
+        ketika beribadah.
+        </p>
+        `,
+        source:"Surah al-Baqarah 2:144"
+    },
 
-{
-q:"Apakah contoh akhlak kepada masyarakat?",
-a:[
-"Menghormati orang lain",
-"Menyebarkan fitnah",
-"Menghina orang",
-"Merampas hak"
-],
-correct:0,
-topic:"Masyarakat",
-hint:"Hormati orang di sekeliling.",
-explain:"Menghormati orang lain merupakan akhlak yang baik dalam masyarakat."
-},
+    {
+        title:"Isra' dan Mi'raj",
+        content:`
+        <p>
+        Isra' dan Mi'raj merupakan peristiwa penting dalam sirah Nabi
+        Muhammad SAW.
+        </p>
 
-{
-q:"Mengapakah kita perlu menjaga hubungan sesama manusia?",
-a:[
-"Untuk mewujudkan hubungan yang baik",
-"Untuk mencari pergaduhan",
-"Untuk menyebarkan fitnah",
-"Untuk merosakkan masyarakat"
-],
-correct:0,
-topic:"Masyarakat",
-hint:"Hubungan baik membawa keharmonian.",
-explain:"Hubungan yang baik membantu mewujudkan masyarakat yang harmoni."
-},
+        <p>
+        Isra' merujuk kepada perjalanan malam Nabi SAW,
+        manakala Mi'raj merujuk kepada perjalanan naik ke langit
+        sebagaimana diterangkan dalam sumber-sumber Islam.
+        </p>
+        `,
+        source:"Surah al-Isra' 17:1"
+    },
 
-{
-q:"Apakah yang perlu dielakkan dalam masyarakat?",
-a:[
-"Fitnah",
-"Tolong-menolong",
-"Hormat-menghormati",
-"Kerjasama"
-],
-correct:0,
-topic:"Masyarakat",
-hint:"Pilih perbuatan tercela.",
-explain:"Fitnah perlu dielakkan kerana boleh merosakkan hubungan sesama manusia."
-},
+    {
+        title:"Piagam Madinah",
+        content:`
+        <p>
+        Piagam Madinah merujuk kepada dokumen dan pengaturan sosial
+        yang berkaitan dengan masyarakat Madinah pada zaman Nabi
+        Muhammad SAW.
+        </p>
 
-{
-q:"Apakah sikap yang baik ketika bercakap dengan orang lain?",
-a:[
-"Bercakap dengan baik",
-"Menghina",
-"Mengejek",
-"Memfitnah"
-],
-correct:0,
-topic:"Masyarakat",
-hint:"Gunakan tutur kata yang baik.",
-explain:"Kita hendaklah menjaga percakapan dan bercakap dengan baik."
-},
+        <p>
+        Ia sering dibincangkan dalam konteks hubungan antara
+        kumpulan masyarakat, tanggungjawab bersama dan kehidupan
+        bermasyarakat.
+        </p>
+        `,
+        source:"Kajian sirah dan sejarah Madinah"
+    },
 
-{
-q:"Apakah maksud pemaaf?",
-a:[
-"Memaafkan kesalahan orang lain",
-"Membalas dendam",
-"Menyebarkan fitnah",
-"Merendahkan orang lain"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Pemaaf berkaitan dengan kesalahan orang lain.",
-explain:"Pemaaf bermaksud bersedia memaafkan kesalahan orang lain."
-},
+    {
+        title:"Burung dan haiwan dalam al-Quran",
+        content:`
+        <p>
+        Al-Quran menyebut pelbagai haiwan dalam kisah dan perumpamaan,
+        termasuk burung, semut, lebah dan unta.
+        </p>
 
-{
-q:"Apakah sifat yang bertentangan dengan tawaduk?",
-a:[
-"Takabbur",
-"Sabar",
-"Ikhlas",
-"Amanah"
-],
-correct:0,
-topic:"Mazmumah",
-hint:"Ia bermaksud sombong.",
-explain:"Takabbur ialah sifat sombong dan bertentangan dengan tawaduk."
-},
+        <p>
+        Penyebutan haiwan dalam al-Quran bukan semata-mata untuk
+        pengetahuan zoologi, tetapi sering membawa pengajaran,
+        tanda kebesaran Allah atau konteks sesuatu kisah.
+        </p>
+        `,
+        source:"Al-Quran"
+    }
 
-{
-q:"Apakah maksud jujur?",
-a:[
-"Bercakap benar dan tidak menipu",
-"Menyembunyikan kebenaran untuk kepentingan diri",
-"Memfitnah",
-"Menipu"
-],
-correct:0,
-topic:"Mahmudah",
-hint:"Jujur berkaitan dengan kebenaran.",
-explain:"Jujur bermaksud bercakap benar dan tidak menipu."
-},
+    ],
 
-{
-q:"Apakah salah satu hak orang lain yang perlu dihormati?",
-a:[
-"Hak mereka",
-"Fitnah mereka",
-"Kelemahan mereka",
-"Kesalahan mereka sahaja"
-],
-correct:0,
-topic:"Masyarakat",
-hint:"Masyarakat yang baik menghormati hak.",
-explain:"Kita hendaklah menghormati hak orang lain."
-},
+    cards:[
 
-{
-q:"Apakah hubungan antara usaha dan tawakal?",
-a:[
-"Berusaha dahulu kemudian bertawakal",
-"Terus bertawakal tanpa usaha",
-"Usaha tidak diperlukan",
-"Tawakal bermaksud berputus asa"
-],
-correct:0,
-topic:"Allah SWT",
-hint:"Tawakal bukan bermaksud tidak berusaha.",
-explain:"Seorang Muslim hendaklah berusaha terlebih dahulu dan kemudian bertawakal kepada Allah SWT."
-},
+    {
+        title:"TABAYYUN",
+        text:"Jangan terus percaya sesuatu berita.",
+        situation:"Anda menerima mesej viral. Cari sumber dan periksa kebenarannya."
+    },
 
-{
-q:"Manakah pasangan yang betul?",
-a:[
-"Mahmudah = terpuji",
-"Mazmumah = terpuji",
-"Mahmudah = tercela",
-"Akhlak = kekayaan"
-],
-correct:0,
-topic:"Maksud Akhlak",
-hint:"Ingat formula mudah NurQuest.",
-explain:"Mahmudah bermaksud terpuji manakala mazmumah bermaksud tercela."
-},
+    {
+        title:"SYUKUR",
+        text:"Nikmat kecil juga boleh menjadi sebab untuk bersyukur.",
+        situation:"Apabila hujan turun selepas cuaca panas, ingat bahawa hujan ialah nikmat Allah."
+    },
 
-{
-q:"Antara berikut, yang manakah menunjukkan akhlak Islamiah yang baik?",
-a:[
-"Jujur, amanah dan sabar",
-"Fitnah, dusta dan takabbur",
-"Khianat dan riya'",
-"Hasad dengki dan dusta"
-],
-correct:0,
-topic:"Maksud Akhlak",
-hint:"Pilih kumpulan yang semuanya positif.",
-explain:"Jujur, amanah dan sabar ialah contoh akhlak mahmudah."
+    {
+        title:"ADAB BERSIN",
+        text:"Islam mengajar adab walaupun dalam perkara kecil.",
+        situation:"Apabila bersin, ingat untuk mengucapkan tahmid."
+    },
+
+    {
+        title:"KEBAIKAN ILMU",
+        text:"Ilmu perlu membawa kepada tindakan yang baik.",
+        situation:"Selepas belajar tentang adab, cuba amalkannya dalam kehidupan."
+    },
+
+    {
+        title:"KESATUAN",
+        text:"Kiblat menyatukan umat Islam dalam ibadah.",
+        situation:"Jutaan Muslim menghadap arah yang sama ketika solat."
+    },
+
+    {
+        title:"BERSYUKUR",
+        text:"Ilmu tentang ciptaan Allah boleh meningkatkan rasa syukur.",
+        situation:"Perhatikan alam sekeliling dan fikirkan tanda-tanda kebesaran Allah."
+    }
+
+    ],
+
+    questions:[
+
+    {
+        question:"Siapakah yang dikaitkan dengan kisah burung hudhud?",
+        options:[
+            "Nabi Ibrahim AS",
+            "Nabi Sulaiman AS",
+            "Nabi Musa AS",
+            "Nabi Nuh AS"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah yang dilakukan burung hudhud dalam kisah Nabi Sulaiman?",
+        options:[
+            "Membina istana",
+            "Membawa berita",
+            "Mengajar manusia solat",
+            "Menjadi panglima perang"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah haiwan yang disebut memberi amaran kepada kaumnya dalam kisah Nabi Sulaiman?",
+        options:[
+            "Semut",
+            "Unta",
+            "Kuda",
+            "Ikan"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Apakah ucapan orang Islam selepas bersin?",
+        options:[
+            "Subhanallah",
+            "Alhamdulillah",
+            "Allahu Akbar",
+            "Astaghfirullah"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah antara adab ketika menguap?",
+        options:[
+            "Menjerit",
+            "Membuka mulut seluas-luasnya",
+            "Menutup mulut",
+            "Ketawa kuat"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Apakah tujuan ilmu hadis antara lain?",
+        options:[
+            "Menilai riwayat",
+            "Mengubah sejarah",
+            "Mencipta cerita",
+            "Menghapuskan sanad"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Apakah maksud sanad secara ringkas?",
+        options:[
+            "Kandungan hadis",
+            "Rangkaian perawi",
+            "Tajuk kitab",
+            "Tempat hadis ditulis"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Apakah kiblat umat Islam?",
+        options:[
+            "Masjid Nabawi",
+            "Kaabah",
+            "Masjid al-Aqsa",
+            "Bukit Safa"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Isra' dan Mi'raj merupakan peristiwa penting dalam...",
+        options:[
+            "Sirah Nabi Muhammad SAW",
+            "Sejarah Rom",
+            "Sejarah matematik",
+            "Sejarah Mesir purba"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Apakah pengajaran daripada kisah semut dalam Surah al-Naml?",
+        options:[
+            "Haiwan tidak penting",
+            "Manusia tidak perlu bersyukur",
+            "Menghargai kebijaksanaan dan bersyukur kepada Allah",
+            "Semut ialah manusia"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Apakah sikap yang sesuai apabila menerima berita meragukan?",
+        options:[
+            "Terus percaya",
+            "Terus sebarkan",
+            "Semak terlebih dahulu",
+            "Tambah maklumat"
+        ],
+        correct:2
+    },
+
+    {
+        question:"Apakah salah satu tujuan pembelajaran ilmu hadis?",
+        options:[
+            "Menilai riwayat dengan kaedah tertentu",
+            "Menyebarkan semua cerita",
+            "Menghapuskan sejarah",
+            "Menggantikan al-Quran"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Apakah yang boleh dipelajari daripada nikmat hujan?",
+        options:[
+            "Tiada apa-apa",
+            "Rasa syukur kepada Allah",
+            "Keperluan membazir air",
+            "Alam tidak mempunyai manfaat"
+        ],
+        correct:1
+    },
+
+    {
+        question:"Mengapa umat Islam menghadap kiblat ketika solat?",
+        options:[
+            "Sebagai aturan ibadah dan tanda kesatuan",
+            "Kerana Kaabah ialah matahari",
+            "Kerana semua tempat lain dilarang",
+            "Kerana arah itu sentiasa berubah"
+        ],
+        correct:0
+    },
+
+    {
+        question:"Apakah yang perlu dilakukan apabila belajar ilmu agama?",
+        options:[
+            "Sekadar menghafal tanpa amalan",
+            "Menggunakannya untuk menghina orang",
+            "Berusaha memahami dan mengamalkannya",
+            "Menyebarkan semua perkara tanpa semakan"
+        ],
+        correct:2
+    }
+
+    ]
 }
 
 ];
 
 
-/* =========================
-   VARIABLES
-========================= */
+/* =========================================================
+   STATE
+========================================================= */
 
-let quizQuestions=[];
-let current=0;
-let score=0;
-let answered=false;
-let mode="relaxed";
-let timer=null;
-let wrongQuestions=[];
+const DEFAULT_STATE = {
+    xp:0,
+    streak:0,
+    lastActivity:null,
+    answered:0,
+    correct:0,
+    wrong:[],
+    readNotes:[],
+    achievements:[],
+    topicStats:{},
+    sound:true,
+    dark:false,
+    easyRead:false
+};
 
-let topicStats=JSON.parse(
-  localStorage.getItem("nurquestTopicStats") || "{}"
-);
+let state = loadState();
 
-let history=JSON.parse(
-  localStorage.getItem("nurquestHistory") || "[]"
-);
+let quizQuestions = [];
+let currentQuestion = 0;
+let quizScore = 0;
+let quizCorrect = 0;
+let quizWrong = 0;
+let quizMode = "relaxed";
+let timerInterval = null;
+let timeLeft = 20;
+let quizStarted = false;
 
-let streak=Number(
-  localStorage.getItem("nurquestStreak") || 0
-);
-
-let notesRead=JSON.parse(
-  localStorage.getItem("nurquestNotesRead") || "[]"
-);
+let audioCtx = null;
 
 
-/* =========================
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function loadState(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem("nurquestState")
+            );
+
+        return {
+            ...DEFAULT_STATE,
+            ...saved,
+            topicStats:saved?.topicStats || {},
+            wrong:saved?.wrong || [],
+            readNotes:saved?.readNotes || [],
+            achievements:saved?.achievements || []
+        };
+
+    }catch(e){
+
+        return {...DEFAULT_STATE};
+
+    }
+}
+
+
+function saveState(){
+
+    localStorage.setItem(
+        "nurquestState",
+        JSON.stringify(state)
+    );
+
+}
+
+
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
-function showSection(id,button){
+function showSection(id){
 
-  document.querySelectorAll(".section")
-    .forEach(s=>s.classList.remove("active"));
+    document.querySelectorAll(".section")
+        .forEach(section=>{
+            section.classList.remove("active");
+        });
 
-  document.getElementById(id)
-    .classList.add("active");
+    const section =
+        document.getElementById(id);
 
-  document.querySelectorAll("nav button")
-    .forEach(b=>b.classList.remove("active"));
+    if(section){
+        section.classList.add("active");
+    }
 
-  if(button) button.classList.add("active");
+    document.querySelectorAll("nav button")
+        .forEach(btn=>{
+            btn.classList.toggle(
+                "active",
+                btn.dataset.section === id
+            );
+        });
 
-  if(id==="performance"){
-    updatePerformance();
-  }
+    if(id==="home"){
+        renderHome();
+    }
 
-  if(id==="achievements"){
-    updateAchievements();
-  }
+    if(id==="notes"){
+        renderNotes();
+    }
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+    if(id==="performance"){
+        renderPerformance();
+    }
+
+    if(id==="achievements"){
+        renderAchievements();
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
 
-function goTo(id){
+/* =========================================================
+   HOME
+========================================================= */
 
-  const btn=[...document.querySelectorAll("nav button")]
-    .find(b=>b.textContent.toLowerCase().includes(
-      id==="home"?"utama":
-      id==="notes"?"nota":
-      id==="quiz"?"kuiz":
-      id==="performance"?"prestasi":
-      id==="achievements"?"pencapaian":"tetapan"
-    ));
+function renderHome(){
 
-  showSection(id,btn);
+    updateXPUI();
+
+    const box =
+        document.getElementById("homeTopics");
+
+    box.innerHTML =
+        TOPICS.map(topic=>`
+
+        <div class="card topic-card"
+             onclick="openTopic('${topic.id}')">
+
+            <div class="topic-icon">
+                ${topic.icon}
+            </div>
+
+            <h3>${topic.title}</h3>
+
+            <p>${topic.description}</p>
+
+            <div class="topic-meta">
+                ${topic.notes.length} nota ·
+                ${topic.questions.length} soalan ·
+                ${topic.cards.length} kad
+            </div>
+
+        </div>
+
+        `).join("");
+
+    document.getElementById("statXP")
+        .textContent = state.xp;
+
+    document.getElementById("statStreak")
+        .textContent = state.streak;
+
+    document.getElementById("statCorrect")
+        .textContent = state.correct;
+
 }
 
 
-/* =========================
+/* =========================================================
+   TOPICS
+========================================================= */
+
+function openTopic(id){
+
+    showSection("notes");
+
+    const search =
+        document.getElementById("noteSearch");
+
+    if(search){
+        search.value = "";
+    }
+
+    renderNotes(id);
+}
+
+
+/* =========================================================
    NOTES
-========================= */
+========================================================= */
 
-function filterNotes(){
+function renderNotes(selectedTopic=null){
 
-  const text=
-    document.getElementById("noteSearch")
-    .value.toLowerCase();
+    const container =
+        document.getElementById("notesContainer");
 
-  document.querySelectorAll(".note").forEach(note=>{
+    const search =
+        (document.getElementById("noteSearch")?.value || "")
+        .toLowerCase();
 
-    const content=note.innerText.toLowerCase();
+    let html="";
 
-    note.style.display=
-      content.includes(text) ? "" : "none";
+    TOPICS.forEach(topic=>{
 
-  });
+        let notes =
+            topic.notes.filter(note=>{
+
+                if(!search) return true;
+
+                return (
+                    note.title.toLowerCase().includes(search) ||
+                    note.content.toLowerCase().includes(search)
+                );
+
+            });
+
+        if(
+            selectedTopic &&
+            topic.id !== selectedTopic
+        ){
+            return;
+        }
+
+        if(notes.length===0) return;
+
+        html += `
+
+        <div style="margin-bottom:35px">
+
+            <div class="card"
+                 style="margin-bottom:14px">
+
+                <div style="font-size:30px">
+                    ${topic.icon}
+                </div>
+
+                <h2>${topic.title}</h2>
+
+                <p class="muted">
+                    ${topic.description}
+                </p>
+
+            </div>
+
+            <div class="note-list">
+
+        `;
+
+        notes.forEach((note,index)=>{
+
+            const noteId =
+                `${topic.id}-${index}`;
+
+            const read =
+                state.readNotes.includes(noteId);
+
+            html += `
+
+            <article class="note">
+
+                <h3>
+                    ${note.title}
+                    ${read ? " ✓" : ""}
+                </h3>
+
+                ${note.content}
+
+                <span class="source">
+                    ${note.source}
+                </span>
+
+                <br><br>
+
+                ${
+                    read
+                    ? `<span class="muted">
+                        ✓ Sudah dibaca
+                       </span>`
+                    : `<button
+                        class="btn btn-primary btn-small"
+                        onclick="markNoteRead('${noteId}')">
+                        Tandakan dibaca +5 XP
+                       </button>`
+                }
+
+            </article>
+
+            `;
+
+        });
+
+        html += `
+            </div>
+
+            <br>
+
+            <div class="grid grid-3">
+
+                ${topic.cards.map(card=>`
+
+                <div class="card learning-card">
+
+                    <div>
+                        <div class="card-label">
+                            🃏 KAD PEMBELAJARAN
+                        </div>
+
+                        <div class="big">
+                            ${card.title}
+                        </div>
+
+                        <p>
+                            ${card.text}
+                        </p>
+                    </div>
+
+                    <div class="situation">
+                        <strong>Situasi:</strong><br>
+                        ${card.situation}
+                    </div>
+
+                </div>
+
+                `).join("")}
+
+            </div>
+
+        </div>
+        `;
+
+    });
+
+    container.innerHTML =
+        html ||
+        `<div class="card">
+            Tiada nota yang sepadan dengan carian.
+         </div>`;
+}
+
+
+function markNoteRead(noteId){
+
+    if(state.readNotes.includes(noteId)){
+        return;
+    }
+
+    state.readNotes.push(noteId);
+
+    addXP(5);
+
+    updateStreak();
+
+    checkAchievements();
+
+    saveState();
+
+    showToast("✓ Nota dibaca · +5 XP");
+
+    renderNotes();
+
+    updateXPUI();
+}
+
+
+/* =========================================================
+   XP / LEVEL
+========================================================= */
+
+function getLevel(){
+
+    return Math.floor(state.xp / 100) + 1;
 
 }
 
 
-function setLanguage(lang){
+function getLevelTitle(level){
 
-  document.querySelectorAll(".rumi")
-    .forEach(x=>x.style.display=lang==="rumi"?"":"none");
+    if(level>=20)
+        return "👑 Juara Akhlak";
 
-  document.querySelectorAll(".jawi")
-    .forEach(x=>x.style.display=lang==="jawi"?"":"none");
+    if(level>=10)
+        return "⭐ Wira Akhlak";
 
-  document.getElementById("rumiBtn")
-    .classList.toggle("selected",lang==="rumi");
+    if(level>=5)
+        return "🌿 Sahabat Akhlak";
 
-  document.getElementById("jawiBtn")
-    .classList.toggle("selected",lang==="jawi");
+    return "🌱 Pencetus Akhlak";
+
 }
 
 
-/* mark notes read when entering notes */
+function addXP(amount){
 
-document.querySelector('button[onclick*="notes"]')
-  ?.addEventListener("click",()=>{
+    const oldLevel =
+        getLevel();
 
-    if(!notesRead.includes("all")){
+    state.xp += amount;
 
-      notesRead=["all"];
+    const newLevel =
+        getLevel();
 
-      localStorage.setItem(
-        "nurquestNotesRead",
-        JSON.stringify(notesRead)
-      );
+    if(newLevel > oldLevel){
+
+        showToast(
+            `⭐ Level Up! ${getLevelTitle(newLevel)}`
+        );
+
+        playLevelSound();
+    }
+
+    saveState();
+
+    updateXPUI();
+}
+
+
+function updateXPUI(){
+
+    const level =
+        getLevel();
+
+    const currentXP =
+        state.xp % 100;
+
+    const title =
+        getLevelTitle(level);
+
+    document.getElementById("homeLevel")
+        .textContent =
+        `Level ${level} · ${title}`;
+
+    document.getElementById("homeXP")
+        .textContent =
+        `${currentXP} / 100 XP`;
+
+    document.getElementById("homeXPBar")
+        .style.width =
+        `${currentXP}%`;
+
+}
+
+
+/* =========================================================
+   STREAK
+========================================================= */
+
+function updateStreak(){
+
+    const today =
+        new Date().toISOString().slice(0,10);
+
+    if(state.lastActivity === today){
+        return;
+    }
+
+    if(!state.lastActivity){
+
+        state.streak = 1;
+
+    }else{
+
+        const previous =
+            new Date(state.lastActivity);
+
+        const current =
+            new Date(today);
+
+        const difference =
+            Math.round(
+                (current-previous) /
+                86400000
+            );
+
+        if(difference===1){
+            state.streak++;
+        }else{
+            state.streak=1;
+        }
 
     }
 
-  });
+    state.lastActivity = today;
+
+    saveState();
+
+}
 
 
-/* =========================
+/* =========================================================
+   QUIZ MODE
+========================================================= */
+
+function selectMode(mode){
+
+    quizMode = mode;
+
+    document.getElementById("relaxedBtn")
+        .classList.toggle(
+            "active",
+            mode==="relaxed"
+        );
+
+    document.getElementById("challengeBtn")
+        .classList.toggle(
+            "active",
+            mode==="challenge"
+        );
+}
+
+
+/* =========================================================
    QUIZ
-========================= */
+========================================================= */
 
-function startQuiz(selectedMode){
+function startQuiz(customQuestions=null){
 
-  mode=selectedMode;
+    clearInterval(timerInterval);
 
-  quizQuestions=[...masterDeck]
-    .sort(()=>Math.random()-.5)
-    .slice(0,10);
+    quizStarted = true;
 
-  current=0;
-  score=0;
-  answered=false;
-  wrongQuestions=[];
+    quizScore=0;
+    quizCorrect=0;
+    quizWrong=0;
+    currentQuestion=0;
 
-  clearInterval(timer);
+    let pool =
+        customQuestions ||
+        TOPICS.flatMap(topic =>
+            topic.questions.map(q=>({
+                ...q,
+                topicId:topic.id
+            }))
+        );
 
-  document.getElementById("relaxedMode")
-    .classList.toggle("selected",mode==="relaxed");
+    // Shuffle questions
+    pool =
+        [...pool]
+        .sort(()=>Math.random()-.5)
+        .slice(0,10);
 
-  document.getElementById("challengeMode")
-    .classList.toggle("selected",mode==="challenge");
+    quizQuestions = pool;
 
-  loadQuestion();
+    document.getElementById("quizStart")
+        .style.display="none";
+
+    document.getElementById("quizResult")
+        .style.display="none";
+
+    document.getElementById("quizArea")
+        .style.display="block";
+
+    resetQuizDOM();
+
+    loadQuestion();
+
+    updateStreak();
+}
+
+
+function resetQuizDOM(){
+
+    document.getElementById("quizArea")
+        .innerHTML = `
+
+        <div class="quiz-header">
+
+            <span class="quiz-number"
+                  id="questionNumber">
+                Soalan
+            </span>
+
+            <span class="timer"
+                  id="timer">
+                —
+            </span>
+
+        </div>
+
+        <div class="progress quiz-progress">
+
+            <div class="progress-bar"
+                 id="progressBar">
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="quiz-question"
+                 id="questionText">
+            </div>
+
+            <div class="options"
+                 id="options">
+            </div>
+
+            <div id="feedback"
+                 class="feedback">
+            </div>
+
+            <div class="quiz-actions">
+
+                <button
+                    id="nextButton"
+                    class="btn btn-primary"
+                    style="display:none"
+                    onclick="nextQuestion()">
+                    Seterusnya →
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
 }
 
 
 function loadQuestion(){
 
-  clearInterval(timer);
+    clearInterval(timerInterval);
 
-  if(current>=quizQuestions.length){
-    finishQuiz();
-    return;
-  }
+    const q =
+        quizQuestions[currentQuestion];
 
-  answered=false;
+    const questionNumber =
+        document.getElementById(
+            "questionNumber"
+        );
 
-  const q=quizQuestions[current];
+    questionNumber.textContent =
+        `Soalan ${currentQuestion+1} / ${quizQuestions.length}`;
 
-  document.getElementById("questionNumber")
-    .textContent=
-      `Soalan ${current+1} / ${quizQuestions.length}`;
+    const progress =
+        ((currentQuestion+1) /
+        quizQuestions.length) * 100;
 
-  document.getElementById("progressBar")
-    .style.width=
-      `${(current/quizQuestions.length)*100}%`;
+    document.getElementById("progressBar")
+        .style.width =
+        `${progress}%`;
 
-  document.getElementById("questionText")
-    .textContent=q.q;
+    document.getElementById("questionText")
+        .textContent =
+        q.question;
 
-  const options=document.getElementById("options");
+    const optionsBox =
+        document.getElementById("options");
 
-  options.innerHTML="";
+    optionsBox.innerHTML="";
 
-  q.a.forEach((answer,index)=>{
+    /*
+       ============================================
+       IMPORTANT FIX
 
-    const button=document.createElement("button");
+       Each answer keeps its ORIGINAL index.
 
-    button.className="option";
+       Example:
+       original answer:
+       A = index 0
+       B = index 1
+       C = index 2
+       D = index 3
 
-    button.textContent=
-      `${String.fromCharCode(65+index)}. ${answer}`;
+       We shuffle the display order,
+       but retain originalIndex.
 
-    button.onclick=()=>chooseAnswer(index,button);
+       Therefore the correct answer does NOT
+       stay at A.
+       ============================================
+    */
 
-    options.appendChild(button);
+    const shuffledOptions =
+        q.options
+        .map((text,index)=>({
+            text,
+            originalIndex:index
+        }))
+        .sort(()=>Math.random()-.5);
 
-  });
+    shuffledOptions.forEach(
+        (option,displayIndex)=>{
 
-  document.getElementById("feedback")
-    .innerHTML="";
+            const button =
+                document.createElement("button");
 
-  document.getElementById("nextButton")
-    .disabled=true;
+            button.className =
+                "quiz-option";
 
-  document.getElementById("hintButton")
-    .style.display=
-      mode==="relaxed" ? "block" : "none";
+            button.dataset.originalIndex =
+                option.originalIndex;
 
-  document.getElementById("timer")
-    .textContent="";
+            button.innerHTML = `
 
-  if(mode==="challenge"){
-    startTimer();
-  }
+                <span class="option-letter">
+                    ${String.fromCharCode(
+                        65+displayIndex
+                    )}
+                </span>
+
+                <span class="option-text">
+                    ${escapeHTML(option.text)}
+                </span>
+
+            `;
+
+            button.onclick=()=>{
+
+                chooseAnswer(
+                    option.originalIndex,
+                    button
+                );
+
+            };
+
+            optionsBox.appendChild(button);
+
+        }
+    );
+
+    if(quizMode==="challenge"){
+
+        timeLeft=20;
+
+        updateTimer();
+
+        timerInterval =
+            setInterval(()=>{
+
+                timeLeft--;
+
+                updateTimer();
+
+                if(timeLeft<=0){
+
+                    clearInterval(timerInterval);
+
+                    timeOut();
+
+                }
+
+            },1000);
+
+    }else{
+
+        document.getElementById("timer")
+            .textContent="🌿 Tiada masa";
+
+    }
+
 }
 
 
-function chooseAnswer(index,button){
+function chooseAnswer(
+    originalIndex,
+    selectedButton
+){
 
-  if(answered) return;
+    if(
+        [...document.querySelectorAll(".quiz-option")]
+        .some(button=>button.disabled)
+    ){
+        return;
+    }
 
-  answered=true;
+    clearInterval(timerInterval);
 
-  clearInterval(timer);
+    const q =
+        quizQuestions[currentQuestion];
 
-  const q=quizQuestions[current];
+    const isCorrect =
+        originalIndex === q.correct;
 
-  const allOptions=
-    document.querySelectorAll(".option");
+    const allOptions =
+        document.querySelectorAll(
+            ".quiz-option"
+        );
 
-  allOptions.forEach(b=>b.disabled=true);
+    allOptions.forEach(button=>{
+        button.disabled=true;
+    });
 
-  if(index===q.correct){
+    selectedButton.classList.add(
+        isCorrect ? "correct" : "wrong"
+    );
 
-    score++;
+    /*
+       Find the actual correct answer
+       using data-original-index.
+    */
 
-    button.classList.add("correct");
+    allOptions.forEach(button=>{
 
-    document.getElementById("feedback").innerHTML=
-      `<div class="feedback good">
-      ✓ Betul! ${q.explain}
-      </div>`;
+        const index =
+            Number(
+                button.dataset.originalIndex
+            );
 
-    updateTopic(q.topic,true);
+        if(index===q.correct){
 
-    playTone(true);
+            button.classList.add("correct");
 
-  }else{
+        }
 
-    button.classList.add("wrong");
+    });
 
-    allOptions[q.correct]
-      .classList.add("correct");
+    if(isCorrect){
 
-    wrongQuestions.push(q);
+        quizScore++;
+        quizCorrect++;
+        state.correct++;
+        state.answered++;
 
-    document.getElementById("feedback").innerHTML=
-      `<div class="feedback bad">
-      ✗ Kurang tepat.<br>${q.explain}
-      </div>`;
+        addXP(10);
 
-    updateTopic(q.topic,false);
+        playCorrectSound();
 
-    playTone(false);
-  }
+        showFeedback(
+            "✓ Betul! +10 XP",
+            true
+        );
 
-  document.getElementById("nextButton")
-    .disabled=false;
+        updateTopicStat(
+            q.topicId,
+            true
+        );
+
+    }else{
+
+        quizWrong++;
+        state.answered++;
+
+        playWrongSound();
+
+        recordWrongQuestion(q);
+
+        showFeedback(
+            `✗ Kurang tepat. Jawapan yang betul ialah:
+             ${escapeHTML(q.options[q.correct])}`,
+            false
+        );
+
+        updateTopicStat(
+            q.topicId,
+            false
+        );
+
+    }
+
+    saveState();
+
+    document.getElementById("nextButton")
+        .style.display="block";
+
+    checkAchievements();
+
+    renderHome();
+}
+
+
+function timeOut(){
+
+    const q =
+        quizQuestions[currentQuestion];
+
+    const allOptions =
+        document.querySelectorAll(
+            ".quiz-option"
+        );
+
+    allOptions.forEach(button=>{
+        button.disabled=true;
+
+        const index =
+            Number(
+                button.dataset.originalIndex
+            );
+
+        if(index===q.correct){
+            button.classList.add("correct");
+        }
+    });
+
+    quizWrong++;
+    state.answered++;
+
+    playTimeoutSound();
+
+    recordWrongQuestion(q);
+
+    showFeedback(
+        `⌛ Masa tamat. Jawapan yang betul ialah:
+         ${escapeHTML(q.options[q.correct])}`,
+        false
+    );
+
+    updateTopicStat(
+        q.topicId,
+        false
+    );
+
+    saveState();
+
+    document.getElementById("nextButton")
+        .style.display="block";
+
+    checkAchievements();
+}
+
+
+function updateTimer(){
+
+    const timer =
+        document.getElementById("timer");
+
+    if(!timer) return;
+
+    timer.textContent =
+        `⏱️ ${timeLeft}s`;
+
+    timer.classList.toggle(
+        "warning",
+        timeLeft<=5
+    );
+
+    if(timeLeft<=5 && timeLeft>0){
+        playTickSound();
+    }
+
+}
+
+
+function showFeedback(
+    text,
+    correct
+){
+
+    const feedback =
+        document.getElementById("feedback");
+
+    feedback.innerHTML=text;
+
+    feedback.className =
+        `feedback show ${
+            correct ? "correct" : "wrong"
+        }`;
+
 }
 
 
 function nextQuestion(){
 
-  current++;
+    currentQuestion++;
 
-  loadQuestion();
-}
+    if(
+        currentQuestion >=
+        quizQuestions.length
+    ){
 
+        finishQuiz();
 
-function showHint(){
+    }else{
 
-  if(answered) return;
-
-  const q=quizQuestions[current];
-
-  document.getElementById("feedback").innerHTML=
-    `<div class="hint">💡 ${q.hint}</div>`;
-}
-
-
-function startTimer(){
-
-  let seconds=20;
-
-  document.getElementById("timer")
-    .textContent=`⏱ ${seconds}s`;
-
-  timer=setInterval(()=>{
-
-    seconds--;
-
-    document.getElementById("timer")
-      .textContent=`⏱ ${seconds}s`;
-
-    if(seconds<=0){
-
-      clearInterval(timer);
-
-      if(!answered){
-
-        answered=true;
-
-        const q=quizQuestions[current];
-
-        wrongQuestions.push(q);
-
-        document.querySelectorAll(".option")
-          .forEach(b=>b.disabled=true);
-
-        document.querySelectorAll(".option")
-          [q.correct]
-          ?.classList.add("correct");
-
-        document.getElementById("feedback")
-          .innerHTML=
-          `<div class="feedback bad">
-          ⏱ Masa tamat.<br>${q.explain}
-          </div>`;
-
-        updateTopic(q.topic,false);
-
-        document.getElementById("nextButton")
-          .disabled=false;
-
-      }
+        loadQuestion();
 
     }
 
-  },1000);
 }
 
+
+/* =========================================================
+   QUIZ RESULT
+========================================================= */
 
 function finishQuiz(){
 
-  clearInterval(timer);
+    clearInterval(timerInterval);
 
-  const percentage=
-    Math.round((score/quizQuestions.length)*100);
+    const total =
+        quizQuestions.length;
 
-  history.unshift({
-    score,
-    total:quizQuestions.length,
-    percentage,
-    date:new Date().toLocaleDateString("ms-MY"),
-    mode
-  });
+    const percentage =
+        Math.round(
+            (quizScore/total)*100
+        );
 
-  history=history.slice(0,10);
+    /*
+       Bonus XP for perfect score.
+    */
 
-  localStorage.setItem(
-    "nurquestHistory",
-    JSON.stringify(history)
-  );
+    if(percentage===100){
 
-  if(percentage===100){
-    localStorage.setItem(
-      "nurquestHero",
-      "true"
-    );
-  }
+        addXP(30);
 
-  updateStreak();
+    }
 
-  document.getElementById("quizBox").innerHTML=`
+    if(total>=10){
 
-    <div class="result">
+        addXP(50);
 
-      <div class="eyebrow">Keputusan</div>
+    }
 
-      <div class="score">
-        ${percentage}%
-      </div>
+    checkAchievements();
 
-      <h2>
-        ${score} / ${quizQuestions.length}
-      </h2>
+    saveState();
 
-      <p>
-        ${
-          percentage===100
-          ? "Tahniah! Anda mendapat markah penuh."
-          : percentage>=70
-          ? "Tahniah! Kefahaman anda adalah baik."
-          : "Teruskan ulang kaji dan cuba lagi."
-        }
-      </p>
+    document.getElementById("quizArea")
+        .style.display="none";
 
-      ${
-        wrongQuestions.length
-        ? `
-        <div class="review">
-          <h3>Soalan yang perlu diulang kaji</h3>
-          <p>
-            ${wrongQuestions.length} soalan perlu diberi perhatian.
-          </p>
-          <button class="btn secondary"
-            onclick="reviewWrong()">
-            🔁 Ulang Kaji
-          </button>
+    const result =
+        document.getElementById("quizResult");
+
+    result.style.display="block";
+
+    let message =
+        "Teruskan usaha anda!";
+
+    if(percentage===100)
+        message="Masya-Allah! Prestasi cemerlang.";
+
+    else if(percentage>=80)
+        message="Sangat baik! Kefahaman anda semakin kuat.";
+
+    else if(percentage>=60)
+        message="Bagus! Teruskan mengulang kaji.";
+
+    result.innerHTML=`
+
+        <div class="card result">
+
+            <div class="result-score">
+                ${percentage}%
+            </div>
+
+            <h2>${message}</h2>
+
+            <p class="muted">
+                ${quizScore} daripada ${total}
+                soalan dijawab dengan betul.
+            </p>
+
+            <p style="margin-top:10px">
+                ✓ Betul: ${quizCorrect}
+                &nbsp; · &nbsp;
+                ✗ Salah: ${quizWrong}
+            </p>
+
+            ${
+                percentage===100
+                ? `<p style="color:var(--primary);margin-top:8px">
+                    +30 XP bonus skor 100%
+                   </p>`
+                :""
+            }
+
+            <div class="result-actions">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="restartQuiz()">
+                    🔄 Cuba Lagi
+                </button>
+
+                <button
+                    class="btn btn-outline"
+                    onclick="reviewWrong()">
+                    🔁 Ulang Soalan Salah
+                </button>
+
+                <button
+                    class="btn btn-outline"
+                    onclick="showSection('performance')">
+                    📊 Lihat Prestasi
+                </button>
+
+            </div>
+
         </div>
-        `
-        : ""
-      }
 
-      <br>
+    `;
 
-      <button class="btn"
-        onclick="startQuiz('${mode}')">
-        Cuba Lagi
-      </button>
-
-    </div>
-  `;
-
-  updatePerformance();
 }
 
 
-/* =========================
+function restartQuiz(){
+
+    document.getElementById("quizResult")
+        .style.display="none";
+
+    document.getElementById("quizArea")
+        .style.display="block";
+
+    startQuiz();
+
+}
+
+
+/* =========================================================
    WRONG QUESTIONS
-========================= */
+========================================================= */
+
+function recordWrongQuestion(q){
+
+    const exists =
+        state.wrong.some(
+            item =>
+                item.question === q.question
+        );
+
+    if(!exists){
+
+        state.wrong.push({
+            question:q.question,
+            options:q.options,
+            correct:q.correct,
+            topicId:q.topicId
+        });
+
+    }
+
+    saveState();
+
+}
+
 
 function reviewWrong(){
 
-  const saved=JSON.parse(
-    localStorage.getItem("nurquestWrong") || "[]"
-  );
+    if(state.wrong.length===0){
 
-  const combined=[
-    ...wrongQuestions,
-    ...saved
-  ];
+        showToast(
+            "Belum ada soalan yang salah."
+        );
 
-  const unique=[
-    ...new Map(
-      combined.map(q=>[q.q,q])
-    ).values()
-  ];
+        return;
 
-  if(!unique.length){
+    }
 
-    alert("Belum ada soalan salah untuk diulang kaji.");
+    const questions =
+        [...state.wrong]
+        .sort(()=>Math.random()-.5)
+        .slice(0,10);
 
-    return;
-  }
+    showSection("quiz");
 
-  quizQuestions=unique
-    .sort(()=>Math.random()-.5);
+    document.getElementById("quizStart")
+        .style.display="none";
 
-  current=0;
-  score=0;
-  answered=false;
-  mode="relaxed";
+    document.getElementById("quizResult")
+        .style.display="none";
 
-  goTo("quiz");
+    document.getElementById("quizArea")
+        .style.display="block";
 
-  loadQuestion();
+    startQuiz(questions);
 }
 
 
-/* =========================
-   TOPIC ANALYTICS
-========================= */
+/* =========================================================
+   TOPIC STATISTICS
+========================================================= */
 
-function updateTopic(topic,correct){
+function updateTopicStat(
+    topicId,
+    correct
+){
 
-  if(!topicStats[topic]){
-    topicStats[topic]={
-      correct:0,
-      wrong:0
-    };
-  }
+    if(!topicId) return;
 
-  if(correct)
-    topicStats[topic].correct++;
-  else
-    topicStats[topic].wrong++;
+    if(!state.topicStats[topicId]){
 
-  localStorage.setItem(
-    "nurquestTopicStats",
-    JSON.stringify(topicStats)
-  );
+        state.topicStats[topicId]={
+            answered:0,
+            correct:0
+        };
 
-  const savedWrong=JSON.parse(
-    localStorage.getItem("nurquestWrong") || "[]"
-  );
+    }
 
-  if(!correct){
+    state.topicStats[topicId].answered++;
 
-    savedWrong.push(
-      quizQuestions[current]
-    );
+    if(correct){
+        state.topicStats[topicId].correct++;
+    }
 
-    localStorage.setItem(
-      "nurquestWrong",
-      JSON.stringify(savedWrong.slice(-30))
-    );
-
-  }
 }
 
 
-function updatePerformance(){
+/* =========================================================
+   PERFORMANCE
+========================================================= */
 
-  document.getElementById("streakText")
-    .textContent=`${streak} hari`;
+function renderPerformance(){
 
-  document.getElementById("notesRead")
-    .textContent=
-      notesRead.includes("all")
-      ? "6 / 6"
-      : "0 / 6";
+    document.getElementById("perfXP")
+        .textContent=state.xp;
 
-  if(history.length){
+    document.getElementById("perfAnswered")
+        .textContent=state.answered;
 
-    const best=Math.max(
-      ...history.map(x=>x.percentage)
-    );
-
-    document.getElementById("bestScore")
-      .textContent=`${best}%`;
-
-  }else{
-
-    document.getElementById("bestScore")
-      .textContent="Belum ada";
-
-  }
-
-
-  const container=
-    document.getElementById("topicStats");
-
-  container.innerHTML="";
-
-  const topics=Object.keys(topicStats);
-
-  if(!topics.length){
-
-    container.innerHTML=
-      `<p class="lead">
-      Jawab beberapa soalan untuk melihat analisis topik.
-      </p>`;
-
-  }else{
-
-    topics.forEach(topic=>{
-
-      const data=topicStats[topic];
-
-      const total=data.correct+data.wrong;
-
-      const percent=
-        total
-        ? Math.round((data.correct/total)*100)
+    const accuracy =
+        state.answered
+        ? Math.round(
+            state.correct /
+            state.answered *
+            100
+        )
         : 0;
 
-      container.innerHTML+=`
+    document.getElementById("perfAccuracy")
+        .textContent =
+        `${accuracy}%`;
 
-        <div style="margin:15px 0">
+    const topicBox =
+        document.getElementById(
+            "topicPerformance"
+        );
 
-          <b>${topic}</b>
+    topicBox.innerHTML =
+        TOPICS.map(topic=>{
 
-          <div class="bar">
-            <span style="width:${percent}%"></span>
-          </div>
+            const stat =
+                state.topicStats[topic.id] ||
+                {
+                    answered:0,
+                    correct:0
+                };
 
-          <small>
-            ${percent}% betul
-            (${data.correct} betul / ${data.wrong} salah)
-          </small>
+            const percent =
+                stat.answered
+                ? Math.round(
+                    stat.correct /
+                    stat.answered *
+                    100
+                )
+                : 0;
 
-        </div>
+            return `
 
-      `;
+            <div style="margin-bottom:18px">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    margin-bottom:6px">
+
+                    <strong>
+                        ${topic.icon}
+                        ${topic.title}
+                    </strong>
+
+                    <span class="muted">
+                        ${percent}%
+                    </span>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        style="width:${percent}%">
+                    </div>
+
+                </div>
+
+                <small class="muted">
+                    ${stat.correct}/${stat.answered}
+                    betul
+                </small>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+    const wrongBox =
+        document.getElementById(
+            "wrongQuestionsList"
+        );
+
+    if(state.wrong.length===0){
+
+        wrongBox.innerHTML =
+            `<p class="muted">
+                Tiada soalan yang salah.
+             </p>`;
+
+    }else{
+
+        wrongBox.innerHTML =
+            state.wrong.map(
+                (q,index)=>`
+
+                <div style="
+                    padding:12px 0;
+                    border-bottom:1px solid var(--border)">
+
+                    <strong>
+                        ${index+1}. ${escapeHTML(q.question)}
+                    </strong>
+
+                    <div class="muted"
+                         style="margin-top:4px">
+
+                        Jawapan:
+                        ${escapeHTML(q.options[q.correct])}
+
+                    </div>
+
+                </div>
+
+                `
+            ).join("");
+
+    }
+
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+const ACHIEVEMENTS=[
+
+{
+    id:"firstQuiz",
+    icon:"📝",
+    title:"Langkah Pertama",
+    description:"Lengkapkan kuiz pertama.",
+    check:()=>state.answered>=1
+},
+
+{
+    id:"tenCorrect",
+    icon:"🎯",
+    title:"10 Jawapan Betul",
+    description:"Jawab 10 soalan dengan betul.",
+    check:()=>state.correct>=10
+},
+
+{
+    id:"perfect",
+    icon:"💯",
+    title:"Skor Sempurna",
+    description:"Dapatkan 100% dalam satu kuiz.",
+    check:()=>localStorage.getItem(
+        "nurquestPerfect"
+    )==="true"
+},
+
+{
+    id:"readNotes",
+    icon:"📚",
+    title:"Pembaca Rajin",
+    description:"Baca semua nota yang tersedia.",
+    check:()=>state.readNotes.length >=
+        TOPICS.reduce(
+            (sum,t)=>sum+t.notes.length,
+            0
+        )
+},
+
+{
+    id:"xp100",
+    icon:"⭐",
+    title:"100 XP",
+    description:"Kumpulkan 100 XP.",
+    check:()=>state.xp>=100
+},
+
+{
+    id:"streak3",
+    icon:"🔥",
+    title:"3 Hari Konsisten",
+    description:"Capai streak 3 hari.",
+    check:()=>state.streak>=3
+},
+
+{
+    id:"streak7",
+    icon:"🌟",
+    title:"7 Hari Konsisten",
+    description:"Capai streak 7 hari.",
+    check:()=>state.streak>=7
+},
+
+{
+    id:"level5",
+    icon:"🌿",
+    title:"Sahabat Akhlak",
+    description:"Capai Level 5.",
+    check:()=>getLevel()>=5
+},
+
+{
+    id:"level10",
+    icon:"⭐",
+    title:"Wira Akhlak",
+    description:"Capai Level 10.",
+    check:()=>getLevel()>=10
+},
+
+{
+    id:"level20",
+    icon:"👑",
+    title:"Juara Akhlak",
+    description:"Capai Level 20.",
+    check:()=>getLevel()>=20
+}
+
+];
+
+
+function checkAchievements(){
+
+    let unlockedNew=false;
+
+    ACHIEVEMENTS.forEach(achievement=>{
+
+        if(
+            !state.achievements.includes(
+                achievement.id
+            ) &&
+            achievement.check()
+        ){
+
+            state.achievements.push(
+                achievement.id
+            );
+
+            unlockedNew=true;
+
+            playAchievementSound();
+
+            showToast(
+                `🏆 Pencapaian: ${achievement.title}`
+            );
+
+        }
 
     });
 
-  }
+    /*
+       Detect perfect score.
+    */
 
+    if(
+        typeof quizScore==="number" &&
+        quizQuestions.length>0 &&
+        quizScore===quizQuestions.length
+    ){
 
-  const historyBox=
-    document.getElementById("history");
+        localStorage.setItem(
+            "nurquestPerfect",
+            "true"
+        );
 
-  if(!history.length){
+    }
 
-    historyBox.innerHTML=
-      `<p class="lead">Belum ada rekod kuiz.</p>`;
-
-  }else{
-
-    historyBox.innerHTML=
-      history.map(item=>`
-
-        <div class="history-item">
-
-          <span>
-            ${item.date}
-            • ${item.mode==="challenge"
-              ? "Zon Cabaran"
-              : "Zon Santai"}
-          </span>
-
-          <b>
-            ${item.percentage}%
-          </b>
-
-        </div>
-
-      `).join("");
-
-  }
+    if(unlockedNew){
+        saveState();
+    }
 
 }
 
 
-/* =========================
-   STREAK
-========================= */
+function renderAchievements(){
 
-function updateStreak(){
+    const box =
+        document.getElementById(
+            "achievementsContainer"
+        );
 
-  const last=
-    localStorage.getItem("nurquestLastDate");
+    box.innerHTML =
+        ACHIEVEMENTS.map(a=>{
 
-  const today=
-    new Date().toDateString();
+            const unlocked =
+                state.achievements
+                .includes(a.id);
 
-  if(last!==today){
+            return `
 
-    streak++;
+            <div class="card achievement
+                ${unlocked ? "" : "locked"}">
 
-    localStorage.setItem(
-      "nurquestStreak",
-      streak
+                <div class="achievement-icon">
+                    ${a.icon}
+                </div>
+
+                <div>
+
+                    <h3>${a.title}</h3>
+
+                    <p class="muted">
+                        ${a.description}
+                    </p>
+
+                    <small>
+                        ${unlocked
+                            ? "✓ Dibuka"
+                            : "🔒 Belum dibuka"}
+                    </small>
+
+                </div>
+
+            </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   SOUND SYSTEM
+========================================================= */
+
+/*
+    These are intentionally simple, familiar
+    quiz sounds:
+
+    CORRECT = short bright "ding"
+    WRONG   = short low "buzz"
+
+    The sounds are NOT the same.
+*/
+
+function getAudioContext(){
+
+    if(!audioCtx){
+
+        audioCtx =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+    }
+
+    if(audioCtx.state==="suspended"){
+
+        audioCtx.resume();
+
+    }
+
+    return audioCtx;
+}
+
+
+function playCorrectSound(){
+
+    if(!state.sound) return;
+
+    const ctx =
+        getAudioContext();
+
+    const now =
+        ctx.currentTime;
+
+    const osc =
+        ctx.createOscillator();
+
+    const gain =
+        ctx.createGain();
+
+    osc.type="sine";
+
+    /*
+       Bright two-note DING.
+    */
+
+    osc.frequency.setValueAtTime(
+        659.25,
+        now
     );
 
-    localStorage.setItem(
-      "nurquestLastDate",
-      today
+    osc.frequency.setValueAtTime(
+        880,
+        now+0.09
     );
 
-  }
-
-}
-
-
-/* =========================
-   ACHIEVEMENTS
-========================= */
-
-function updateAchievements(){
-
-  const hero=
-    localStorage.getItem("nurquestHero")==="true";
-
-  const reader=
-    notesRead.includes("all");
-
-  const streakBadge=
-    streak>=3;
-
-  document.getElementById("badgeHero")
-    .classList.toggle("locked",!hero);
-
-  document.getElementById("badgeReader")
-    .classList.toggle("locked",!reader);
-
-  document.getElementById("badgeStreak")
-    .classList.toggle("locked",!streakBadge);
-
-}
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-function toggleDark(){
-
-  document.body.classList.toggle("dark");
-
-  localStorage.setItem(
-    "nurquestDark",
-    document.body.classList.contains("dark")
-  );
-
-}
-
-
-function toggleEasy(){
-
-  document.body.classList.toggle("easy");
-
-  localStorage.setItem(
-    "nurquestEasy",
-    document.body.classList.contains("easy")
-  );
-
-}
-
-
-function changeFont(amount){
-
-  const currentSize=
-    parseFloat(
-      getComputedStyle(document.documentElement)
-      .fontSize
+    gain.gain.setValueAtTime(
+        0.0001,
+        now
     );
 
-  const newSize=
-    Math.min(
-      22,
-      Math.max(
-        13,
-        currentSize+amount
-      )
+    gain.gain.exponentialRampToValueAtTime(
+        0.20,
+        now+0.015
     );
 
-  document.documentElement.style.fontSize=
-    newSize+"px";
-
-  localStorage.setItem(
-    "nurquestFont",
-    newSize
-  );
-
-}
-
-
-function resetData(){
-
-  const confirmReset=
-    confirm(
-      "Padam semua sejarah, markah dan kemajuan?"
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now+0.28
     );
 
-  if(!confirmReset) return;
-
-  localStorage.removeItem("nurquestTopicStats");
-  localStorage.removeItem("nurquestHistory");
-  localStorage.removeItem("nurquestStreak");
-  localStorage.removeItem("nurquestNotesRead");
-  localStorage.removeItem("nurquestWrong");
-  localStorage.removeItem("nurquestHero");
-  localStorage.removeItem("nurquestLastDate");
-
-  alert("Data telah direset.");
-
-  location.reload();
-
-}
-
-
-/* =========================
-   AUDIO
-========================= */
-
-function playTone(correct){
-
-  try{
-
-    const AudioContext=
-      window.AudioContext ||
-      window.webkitAudioContext;
-
-    if(!AudioContext) return;
-
-    const ctx=new AudioContext();
-
-    const oscillator=
-      ctx.createOscillator();
-
-    const gain=
-      ctx.createGain();
-
-    oscillator.connect(gain);
-
+    osc.connect(gain);
     gain.connect(ctx.destination);
 
-    oscillator.frequency.value=
-      correct ? 700 : 250;
+    osc.start(now);
+    osc.stop(now+0.3);
 
-    gain.gain.value=.04;
+}
 
-    oscillator.start();
 
-    oscillator.stop(
-      ctx.currentTime+.12
+function playWrongSound(){
+
+    if(!state.sound) return;
+
+    const ctx =
+        getAudioContext();
+
+    const now =
+        ctx.currentTime;
+
+    const osc =
+        ctx.createOscillator();
+
+    const gain =
+        ctx.createGain();
+
+    /*
+       Low short BUZZ.
+    */
+
+    osc.type="square";
+
+    osc.frequency.setValueAtTime(
+        180,
+        now
     );
 
-  }catch(e){}
+    osc.frequency.exponentialRampToValueAtTime(
+        105,
+        now+0.16
+    );
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.09,
+        now+0.01
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now+0.19
+    );
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now+0.2);
 
 }
 
 
-/* =========================
-   LOAD SAVED SETTINGS
-========================= */
+function playTickSound(){
 
-if(
-  localStorage.getItem("nurquestDark")==="true"
-){
-  document.body.classList.add("dark");
+    if(!state.sound) return;
+
+    /*
+       Very short timer tick.
+    */
+
+    const ctx =
+        getAudioContext();
+
+    const now =
+        ctx.currentTime;
+
+    const osc =
+        ctx.createOscillator();
+
+    const gain =
+        ctx.createGain();
+
+    osc.type="sine";
+
+    osc.frequency.value=900;
+
+    gain.gain.setValueAtTime(
+        0.045,
+        now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now+0.05
+    );
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now+0.06);
+
 }
 
-if(
-  localStorage.getItem("nurquestEasy")==="true"
-){
-  document.body.classList.add("easy");
+
+function playTimeoutSound(){
+
+    if(!state.sound) return;
+
+    const ctx =
+        getAudioContext();
+
+    const now =
+        ctx.currentTime;
+
+    [220,160].forEach(
+        (frequency,index)=>{
+
+            const osc =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+            osc.type="square";
+
+            osc.frequency.value =
+                frequency;
+
+            const start =
+                now + index*.12;
+
+            gain.gain.setValueAtTime(
+                0.0001,
+                start
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.09,
+                start+.01
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.0001,
+                start+.1
+            );
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(start);
+            osc.stop(start+.11);
+
+        }
+    );
+
 }
 
-const savedFont=
-  localStorage.getItem("nurquestFont");
 
-if(savedFont){
-  document.documentElement.style.fontSize=
-    savedFont+"px";
+function playAchievementSound(){
+
+    if(!state.sound) return;
+
+    const ctx =
+        getAudioContext();
+
+    const now =
+        ctx.currentTime;
+
+    const notes=[
+        523.25,
+        659.25,
+        783.99,
+        1046.50
+    ];
+
+    notes.forEach(
+        (frequency,index)=>{
+
+            const osc =
+                ctx.createOscillator();
+
+            const gain =
+                ctx.createGain();
+
+            osc.type="sine";
+
+            const start =
+                now+index*.09;
+
+            osc.frequency.value =
+                frequency;
+
+            gain.gain.setValueAtTime(
+                0.0001,
+                start
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.12,
+                start+.015
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.0001,
+                start+.25
+            );
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(start);
+            osc.stop(start+.26);
+
+        }
+    );
+
 }
 
 
-/* =========================
-   INITIAL QUIZ
-========================= */
+function playLevelSound(){
 
-startQuiz("relaxed");
+    if(!state.sound) return;
+
+    playAchievementSound();
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function toggleSound(enabled){
+
+    state.sound=enabled;
+
+    saveState();
+
+    /*
+       Play test sound immediately when enabled.
+    */
+
+    if(enabled){
+
+        playCorrectSound();
+
+        showToast(
+            "🔊 Bunyi dihidupkan"
+        );
+
+    }else{
+
+        showToast(
+            "🔇 Bunyi dimatikan"
+        );
+
+    }
+
+}
+
+
+function toggleDark(enabled){
+
+    state.dark=enabled;
+
+    document.body.classList.toggle(
+        "dark",
+        enabled
+    );
+
+    saveState();
+
+}
+
+
+function toggleEasyRead(enabled){
+
+    state.easyRead=enabled;
+
+    document.body.style.fontSize =
+        enabled ? "18px" : "";
+
+    document.body.style.letterSpacing =
+        enabled ? ".01em" : "";
+
+    saveState();
+
+}
+
+
+function loadSettings(){
+
+    document.getElementById("soundToggle")
+        .checked=state.sound;
+
+    document.getElementById("darkToggle")
+        .checked=state.dark;
+
+    document.getElementById("easyReadToggle")
+        .checked=state.easyRead;
+
+    document.body.classList.toggle(
+        "dark",
+        state.dark
+    );
+
+    if(state.easyRead){
+
+        document.body.style.fontSize="18px";
+        document.body.style.letterSpacing=".01em";
+
+    }
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetProgress(){
+
+    const confirmed =
+        confirm(
+            "Adakah anda pasti mahu reset semua kemajuan NurQuest?"
+        );
+
+    if(!confirmed) return;
+
+    localStorage.removeItem(
+        "nurquestState"
+    );
+
+    localStorage.removeItem(
+        "nurquestPerfect"
+    );
+
+    state={
+        ...DEFAULT_STATE
+    };
+
+    loadSettings();
+
+    renderHome();
+
+    renderAchievements();
+
+    showToast(
+        "Kemajuan telah direset."
+    );
+
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+    window.toastTimer =
+        setTimeout(()=>{
+
+            toast.classList.remove("show");
+
+        },2200);
+
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        loadSettings();
+
+        renderHome();
+
+        renderNotes();
+
+        renderAchievements();
+
+        renderPerformance();
+
+        showSection("home");
+
+    }
+);
 
 </script>
 
