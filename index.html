@@ -1715,7 +1715,7 @@ function chooseAnswer(button,isCorrect){
 
     showFeedback(
       true,
-      "Betul! 🌸"
+      "Betul!"
     );
 
   }else{
@@ -2504,7 +2504,7 @@ function renderChat(){
 
         <div class="bubble">
 
-          Assalamualaikum! 🌸
+          Assalamualaikum! 
           
           Saya Akhlak AI.
 
@@ -2637,11 +2637,11 @@ function generateAIAnswer(originalQuestion){
 
     return english
 
-    ?`Waalaikumsalam 🌸
+    ?`Waalaikumsalam 
     
 Feel free to ask me about Islam, akhlak, worship, daily situations or Islamic knowledge. You can type your question naturally.`
 
-    :`Waalaikumussalam 🌸
+    :`Waalaikumussalam 
 
 Tanya sahaja tentang Islam, akhlak, ibadah, situasi harian atau pengetahuan Islam. Tak perlu gunakan ayat formal.`;
 
@@ -3180,7 +3180,136 @@ renderNotes();
 renderChat();
 
 renderAll();
+// =============================
+// NURQUEST AI - REAL AI
+// =============================
 
+const NURQUEST_AI_URL =
+  "https://nur-quest-ai.vercel.app/api/islam-ai";
+
+let aiHistory = [];
+
+function addAIMessage(role, text) {
+  const chat = document.getElementById("chat");
+  if (!chat) return;
+
+  const message = document.createElement("div");
+  message.className = "message " + role;
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+
+  message.appendChild(bubble);
+  chat.appendChild(message);
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendAI(event) {
+  event.preventDefault();
+
+  const input = document.getElementById("aiInput");
+  if (!input) return;
+
+  const question = input.value.trim();
+
+  if (!question) return;
+
+  const language =
+    document.getElementById("language")?.value || "ms";
+
+  // Paparkan soalan pengguna
+  addAIMessage("user", question);
+
+  input.value = "";
+
+  // Loading
+  addAIMessage(
+    "bot",
+    language === "en"
+      ? "Thinking..."
+      : "Sedang berfikir..."
+  );
+
+  const chat = document.getElementById("chat");
+  const loadingBubble =
+    chat?.lastElementChild?.querySelector(".bubble");
+
+  try {
+    const response = await fetch(NURQUEST_AI_URL, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        message: question,
+        language: language,
+        history: aiHistory
+      })
+    });
+
+    const data = await response.json();
+
+    // Buang loading message
+    if (chat?.lastElementChild) {
+      chat.lastElementChild.remove();
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed");
+    }
+
+    const answer =
+      data.answer ||
+      (language === "en"
+        ? "Sorry, I couldn't answer that."
+        : "Maaf, saya tidak dapat menjawab soalan itu.");
+
+    addAIMessage("bot", answer);
+
+    // Simpan conversation
+    aiHistory.push({
+      role: "user",
+      content: question
+    });
+
+    aiHistory.push({
+      role: "assistant",
+      content: answer
+    });
+
+    // Simpan maksimum 10 mesej terakhir
+    aiHistory = aiHistory.slice(-10);
+
+  } catch (error) {
+
+    console.error("NurQuest AI error:", error);
+
+    if (chat?.lastElementChild) {
+      chat.lastElementChild.remove();
+    }
+
+    addAIMessage(
+      "bot",
+      language === "en"
+        ? "Sorry, NurQuest AI is temporarily unavailable. Please try again."
+        : "Maaf, NurQuest AI sedang mengalami masalah. Cuba lagi sebentar."
+    );
+  }
+}
+
+function quickAI(question) {
+  const input = document.getElementById("aiInput");
+
+  if (!input) return;
+
+  input.value = question;
+
+  input.focus();
+}
 </script>
 
 </body>
