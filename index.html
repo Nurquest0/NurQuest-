@@ -3252,6 +3252,7 @@ async function sendAI(event) {
     });
 
     const data = await response.json();
+    console.log("NurQuest AI response:", data);
 
     // Buang loading message
     if (chat?.lastElementChild) {
