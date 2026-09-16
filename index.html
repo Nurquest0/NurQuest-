@@ -2557,52 +2557,7 @@ function quickAI(question){
 }
 
 
-function sendAI(event){
 
-  event.preventDefault();
-
-
-  const input=
-  document.getElementById("aiInput");
-
-
-  const question=
-  input.value.trim();
-
-
-  if(!question){
-    return;
-  }
-
-
-  addChat(
-    "user",
-    question
-  );
-
-
-  input.value="";
-
-
-  /*
-    Beri sedikit delay supaya rasa
-    macam AI sedang memproses.
-  */
-
-  setTimeout(()=>{
-
-    const answer=
-    generateAIAnswer(question);
-
-
-    addChat(
-      "bot",
-      answer
-    );
-
-  },250);
-
-}
 
 
 /* =========================================================
@@ -3269,7 +3224,7 @@ async function sendAI(event) {
         ? "Sorry, I couldn't answer that."
         : "Maaf, saya tidak dapat menjawab soalan itu.");
 
-addAIMessage("bot", "TEST: " + answer);
+addAIMessage("bot", + answer);
 
     // Simpan conversation
     aiHistory.push({
