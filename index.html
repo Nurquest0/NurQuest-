@@ -3224,6 +3224,8 @@ async function sendAI(event) {
         ? "Sorry, I couldn't answer that."
         : "Maaf, saya tidak dapat menjawab soalan itu.");
 
+    console.log("ANSWER:", answer, typeof answer);
+
 addAIMessage("bot", answer);
 
     // Simpan conversation
