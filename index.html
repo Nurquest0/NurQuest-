@@ -3269,6 +3269,17 @@ function quickAI(question) {
   input.focus();
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://tkboklqxlmeqliaygwzf.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_LBGkPr1g-wF7IGwQo5fP_w__bUjalRV";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+  
 </body>
 </html>
